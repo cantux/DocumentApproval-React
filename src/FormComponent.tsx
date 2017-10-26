@@ -4,12 +4,14 @@ import {Checkbox} from 'primereact/components/checkbox/Checkbox';
 import {Button} from 'primereact/components/button/Button';
 import {InputText} from 'primereact/components/inputtext/InputText';
 
-// import { RouteComponentProps } from 'react-router-dom'
+import { match } from 'react-router-dom'
 import {ErrorComponent} from "./ErrorComponent";
+
+import * as rpn from 'request-promise-native';
 
 interface NavParam {id: number};
 interface FormProps{
-    match: any//RouteComponentProps<NavParam>
+    match: match<NavParam>
 }
 interface FormState{
     checked: boolean,
@@ -26,44 +28,35 @@ export class FormComponent extends React.Component<FormProps, FormState>{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    checkIsValid (props: NavParam) {
-        console.log(props);
-        if(props.id == 112){
-            this.setState({isValid: true});
-        }
-        // fetch('/customer-info/',{
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(props.match.params)}
-        // ).then(
-        //     function (response) {
-        //         return response.json();
-        //     }
-        // ).then(function (json) {
-        //     console.log(json);
-        //     props.history.push('/FormComponent');
-        //     //props.history.push('')
-        // })
+    checkIsValid (match: match<NavParam>) {
+        console.log(match);
+        rpn({
+            uri: match.url,
+            method: 'POST',
+            json: true,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(match.params)}
+        ).then((response: any) => (response.json()));
     }
 
     componentWillMount () {
-        this.checkIsValid(this.props.match.params);
+        this.checkIsValid(this.props.match);
     }
 
     handleSubmit () {
-        fetch('/submitData', {
+        rpn( {
+            uri: '/submitData',
+            json: true,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)}
         ).then(
-            function (response) {
-
-            }, function (error) {
-
+            (response: any) => {
+                console.log(response);
             }
         );
     }

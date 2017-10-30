@@ -11,12 +11,11 @@ import 'primereact/resources/themes/omega/theme.css';
 import 'font-awesome/css/font-awesome.css';
 
 interface AppProps {};
-interface AppState {isValid:boolean};
+interface AppState {};
 
 class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
-        this.state = {isValid: false};
     }
 
     render() {

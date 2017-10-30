@@ -4,12 +4,15 @@ import {Checkbox} from 'primereact/components/checkbox/Checkbox';
 import {Button} from 'primereact/components/button/Button';
 import {InputText} from 'primereact/components/inputtext/InputText';
 
-import { match } from 'react-router-dom'
 import {ErrorComponent} from "./ErrorComponent";
 
 import * as rpn from 'request-promise-native';
 
-interface NavParam {id: number};
+// Types
+import { match } from 'react-router-dom'
+interface NavParam {
+    id: number
+};
 interface FormProps{
     match: match<NavParam>
 }
@@ -20,6 +23,7 @@ interface FormState{
     motherMaidenName: string,
     isValid: boolean
 };
+// End of Types
 
 export class FormComponent extends React.Component<FormProps, FormState>{
     constructor(props: FormProps) {

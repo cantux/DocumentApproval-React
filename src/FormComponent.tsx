@@ -11,7 +11,7 @@ import * as rpn from 'request-promise-native';
 // Types
 import { match } from 'react-router-dom'
 interface NavParam {
-    id: number
+    documentId: number
 };
 interface FormProps{
     match: match<NavParam>
@@ -34,22 +34,23 @@ export class FormComponent extends React.Component<FormProps, FormState>{
 
     checkIsValid (match: match<NavParam>) {
         console.log(match);
-        rpn({
-            uri: match.url,
-            method: 'POST',
-            json: true,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(match.params)}
-        ).then((response: any) => (response.json()));
+        // rpn({
+        //     uri: match.url,
+        //     method: 'POST',
+        //     json: true,
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(match.params)}
+        // ).then((response: any) => (response.json()));
     }
 
     componentWillMount () {
         this.checkIsValid(this.props.match);
     }
 
-    handleSubmit () {
+    handleSubmit (event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         rpn( {
             uri: '/submitData',
             json: true,
@@ -73,7 +74,7 @@ export class FormComponent extends React.Component<FormProps, FormState>{
         this.setState({motherMaidenName: event.currentTarget.value});
     }
 
-    private handlePhoneChange = (event: React.FormEvent<HTMLInputElement>) => {
+    private handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({phone: event.currentTarget.value});
     }
 
@@ -121,7 +122,7 @@ export class FormComponent extends React.Component<FormProps, FormState>{
                         </div>
                     </div>
                 </form> :
-                <ErrorComponent/>}
+                <ErrorComponent message={'Geçersiz döküman onay formu!'}/>}
             </div>
 
         );

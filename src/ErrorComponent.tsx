@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-interface ErrorProps {};
-interface ErrorStates {};
+interface ErrorProps {
+    message: string
+}
+interface ErrorStates {}
 
 export class ErrorComponent extends React.Component<ErrorProps, ErrorStates> {
     constructor(props: ErrorProps) {
@@ -10,7 +12,7 @@ export class ErrorComponent extends React.Component<ErrorProps, ErrorStates> {
 
     render () {
         return (
-            <div> ERROR!! </div>
-        )
+            <div> Hata!! {this.props.message}</div>
+        );
     }
 }

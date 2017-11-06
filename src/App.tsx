@@ -1,17 +1,19 @@
 
 import * as React from 'react';
 import './App.css';
-
+// import 'pdfjs-dist';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { FormComponent } from './FormComponent';
 import { DocumentsTableComponent } from './DocumentsTableComponent';
 import { DocumentWizardComponent } from "./DocumentWizardComponent";
 import { DocumentWizardNodeComponent } from "./DocumentWizardNodeComponent";
+import {PdfListComponent} from "./PdfListComponent";
 
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/omega/theme.css';
 import 'font-awesome/css/font-awesome.css';
+
 
 interface AppProps {}
 interface AppState {}
@@ -27,12 +29,13 @@ class App extends React.Component<AppProps, AppState> {
                 <div className="App-header">
                     <h2>Döküman Onay</h2>
                 </div>
-                <Router>
+                <Router basename="/fiba">
                     <div className="App-intro">
                         <Route path="/form/:documentId" component={FormComponent}/>
                         <Route path="/table/:documentId" component={DocumentsTableComponent}/>
                         <Route exact path="/wiz/:documentId" component={DocumentWizardComponent}/>
                         <Route exact path="/wiz/:documentId/node/:nodeId" component={DocumentWizardNodeComponent}/>
+                        <Route path="/pdf" component={PdfListComponent}/>
                     </div>
                 </Router>
             </div>

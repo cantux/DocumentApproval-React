@@ -76,7 +76,6 @@ export class PdfListComponent extends React.Component<PdfListProps, PdfListState
 
     public render (): JSX.Element {
         const pdfViewItems = this.state.documents.map((item, index) => {
-            console.log(item, index);
             return (<PdfViewComponent key={index} itemIndex={index} document={item} onDocumentReadChecked={this.onDocumentReadChecked}/>);
         });
         return (

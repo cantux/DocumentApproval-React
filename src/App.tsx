@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import './App.css';
-// import 'pdfjs-dist';
+import 'pdfjs-dist';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { FormComponent } from './FormComponent';
@@ -29,7 +29,7 @@ class App extends React.Component<AppProps, AppState> {
                 <div className="App-header">
                     <h2>Döküman Onay</h2>
                 </div>
-                <Router basename="/fiba">
+                <Router>
                     <div className="App-intro">
                         <Route path="/form/:documentId" component={FormComponent}/>
                         <Route path="/table/:documentId" component={DocumentsTableComponent}/>

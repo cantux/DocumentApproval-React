@@ -58,7 +58,9 @@ export class PdfViewComponent extends React.Component<PdfListProps, PdfListState
                 {/*<div style={pdfContainerStyle}>*/}
                     {/*<object data="/kredi_sozlesmesi.pdf" type="application/pdf" width="100%" height="100%"> </object>*/}
                         <iframe src="./kredi_sozlesmesi.pdf" />
-
+                        {/*style={iframeStyle}*/}
+                        {/*<iframe id="pdfviewer" src="http://docs.google.com/gview?embedded=true&url=http://bosislermudurlugu.herokuapp.com/kredi_sozlesmesi.pdf&amp;embedded=true" width="100%" height="100%"></iframe>*/}
+                {/*</div>*/}
                     <Panel>
                         {this.props.document.name} {this.props.document.documentLink}
                         <br/>

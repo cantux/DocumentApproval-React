@@ -25,7 +25,6 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
-        console.log('env: ', process.env);
         return (
             <div className="App">
                 <div className="App-header">

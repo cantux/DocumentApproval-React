@@ -7,7 +7,7 @@ import { Panel } from 'primereact/components/panel/Panel';
 import { Checkbox } from 'primereact/components/checkbox/Checkbox';
 import { Growl, GrowlMessage } from 'primereact/components/growl/Growl';
 
-// import * as rpn from 'request-promise-native';
+import * as rpn from 'request-promise-native';
 
 import { match } from 'react-router-dom';
 // Types
@@ -56,6 +56,22 @@ export class DocumentWizardNodeComponent extends React.Component<DocumentWizardN
         {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "twelweth"}];
 
     componentWillMount () {
+        rpn({
+            uri: "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=123",
+            method: 'GET',
+            json: true
+        }).then((response: any) => {
+            console.log("response: ", response.json())
+            // this.setState({ isValid: true, documents: response.json() });
+            // let route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
+            // if (this.props.match.params.nodeId)
+            // {
+            //     route = "/wiz/" + this.props.match.params.documentId + "/node/" + this.props.match.params.nodeId;
+            // }
+            // this.props.history.push(route);
+
+        }).catch((err) => console.log(err));
+
         setTimeout(() => {
             if (this.mockDocuments) {
                 this.setState({ isValid: true, documents: this.mockDocuments });

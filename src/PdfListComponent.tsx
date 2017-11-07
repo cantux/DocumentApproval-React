@@ -62,7 +62,7 @@ export class PdfListComponent extends React.Component<PdfListProps, PdfListState
     }
 
     sendApproval () {
-        console.log('todo')
+        console.log('todo POST list')
     }
 
     onDocumentReadChecked (key: number) {

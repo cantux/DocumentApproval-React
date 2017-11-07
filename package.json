@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build:relative:tomcat" :"set PUBLIC_URL=https://fb000pc242.fibabanka.local:9444/InstantWeb/faces/mobile/&&node scripts/build.js",
+    "build:relative:tomcat" :"set PUBLIC_URL=/InstantWeb/faces/mobile/&&node scripts/build.js",
     "build:absolute": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },

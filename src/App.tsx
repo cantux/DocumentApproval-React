@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import './App.css';
+import 'pdfjs-dist';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -24,12 +25,13 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
+        console.log('env: ', process.env);
         return (
             <div className="App">
                 <div className="App-header">
                     <h2>Döküman Onay</h2>
                 </div>
-                <Router>
+                <Router basename={process.env.PUBLIC_URL}>
                     <div className="App-intro">
                         <Route path="/form/:documentId" component={FormComponent}/>
                         <Route path="/table/:documentId" component={DocumentsTableComponent}/>

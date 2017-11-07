@@ -2,7 +2,6 @@
   "name": "primereact-tyepscript-quickstart",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://fb000pc242.fibabanka.local:9444/InstantWeb/faces/mobile/",
   "dependencies": {
     "@types/react-router-dom": "^4.0.8",
     "autoprefixer": "7.1.2",
@@ -47,7 +46,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build:relative:tomcat" :"set PUBLIC_URL=https://fb000pc242.fibabanka.local:9444/InstantWeb/faces/mobile/&&node scripts/build.js",
+    "build:absolute": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {

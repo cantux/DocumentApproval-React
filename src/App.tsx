@@ -1,7 +1,6 @@
 
 import * as React from 'react';
 import './App.css';
-import 'pdfjs-dist';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 

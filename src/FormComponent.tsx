@@ -33,7 +33,7 @@ export class FormComponent extends React.Component<FormProps, FormState>{
     }
 
     checkIsValid (match: match<NavParam>) {
-        console.log(match);
+        this.setState({isValid: true});
         // rpn({
         //     uri: match.url,
         //     method: 'POST',

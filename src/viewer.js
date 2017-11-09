@@ -32,6 +32,7 @@ export function load(viewId) {
                 container.appendChild(pageCanvas);
 
                 var scale = container.clientWidth / viewport.width;
+                console.log('scale is: ', scale);
                 viewport = pdfPage.getViewport(scale);
 
                 pageCanvas.width = viewport.width;

@@ -51,7 +51,7 @@ export class DocumentWizardComponent extends React.Component<DocumentWizardProps
                             Redirecting...
                         </div>
                         :
-                        <ErrorComponent message={'Geçersiz döküman onaylama sihirbazı!!'}/>
+                        <ErrorComponent message={'Geçersiz döküman referans numarasi.!!'}/>
                 }
             </div>
 

@@ -1,42 +1,42 @@
 import * as React from "react";
 
-import { PdfViewComponent } from './PdfViewComponent';
-import { ErrorComponent } from './ErrorComponent';
-
-import { Button } from 'primereact/components/button/Button';
-import { Panel } from 'primereact/components/panel/Panel';
-
-// import * as rpn from 'request-promise-native';
+import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion'
+import { PdfViewerComponent } from './PdfViewerComponent';
 
 import { match } from 'react-router-dom';
-// Types
-interface Document {
-    documentLink: string;
-    name: string;
-    detail: string;
-    downloaded: boolean
-}
+import {CheckboxComponent} from "./CheckboxComponent";
 interface NavParam {
     documentId: number;
     nodeId: number;
 }
-interface PdfListProps {
+interface Document {
+    documentLink: string;
+    name: string;
+    detail: string;
+    downloaded: boolean;
+}
+interface AccordionListProps {
     match: match<NavParam>;
     history: any;
 }
-interface PdfListState {
+interface AccordionListState {
     allChecked: boolean;
     isValid: boolean;
     documents: Document[];
+    lazy: boolean;
+    activeAccordion: number | null;
 }
 // End of Types
 
-export class PdfListComponent extends React.Component<PdfListProps, PdfListState> {
-    constructor(props: PdfListProps) {
+export class AccordionListComponent extends React.Component<AccordionListProps, AccordionListState> {
+    constructor(props: AccordionListProps) {
         super(props);
-        this.state = {allChecked: false, isValid: false, documents: []};
+        this.state = {allChecked: false, isValid: false, documents: [], lazy: false, activeAccordion: this.props.match.params.nodeId};
         this.sendApproval = this.sendApproval.bind(this);
         this.onDocumentReadChecked = this.onDocumentReadChecked.bind(this);
+        this.onAccordionTabOpen = this.onAccordionTabOpen.bind(this);
+        this.onAccordionTabClose = this.onAccordionTabClose.bind(this);
+
     }
 
     mockDocuments: Document[] = [
@@ -58,7 +58,7 @@ export class PdfListComponent extends React.Component<PdfListProps, PdfListState
             if (this.mockDocuments) {
                 this.setState({ isValid: true, documents: this.mockDocuments });
             }
-        }, 250);
+        }, 1000);
     }
 
     sendApproval () {
@@ -74,31 +74,32 @@ export class PdfListComponent extends React.Component<PdfListProps, PdfListState
         this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["downloaded"])) });
     }
 
+    onAccordionTabOpen (e: any) {
+        console.log('open', e)
+        this.setState({activeAccordion: null});
+    }
+
+    onAccordionTabClose (e: any) {
+        console.log('close', e);
+        this.setState({activeAccordion: e.index});
+    }
+
     public render (): JSX.Element {
         const pdfViewItems = this.state.documents.map((item, index) => {
-            return (<PdfViewComponent key={index} itemIndex={index} document={item} onDocumentReadChecked={this.onDocumentReadChecked}/>);
+            return (
+                <AccordionTab key={index} header={item.name}>
+
+                    <PdfViewerComponent key={index} documentIndex={index} document={item}  lazy={this.state.activeAccordion === index}/>
+
+                    <CheckboxComponent document={item} documentIndex={index} onDocumentReadChecked={this.onDocumentReadChecked}/>
+
+                </AccordionTab>);
         });
+
         return (
-                this.state.isValid ?
-                <div>
-                    <div className="ui-g">
-                        {pdfViewItems}
-                    </div>
-                    <Panel>
-                        <div className="ui-g">
-                            <div className="ui-g-12">
-                                <Button
-                                    onClick={this.sendApproval}
-                                    label={"Onayı Gönder"}
-                                    icon={"fa-arrow-right"}
-                                    iconPos={"right"}
-                                    disabled={!this.state.allChecked}
-                                />
-                            </div>
-                        </div>
-                    </Panel>
-                </div>
-                : <ErrorComponent message={'Geçersiz döküman onay tablosu.'}/>
-            );
+            <Accordion onTabOpen={this.onAccordionTabOpen} onTabClose={this.onAccordionTabClose} activeIndex={this.state.activeAccordion}>
+                {pdfViewItems}
+            </Accordion>
+        );
     }
 }

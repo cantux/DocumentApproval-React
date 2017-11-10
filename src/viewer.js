@@ -13,8 +13,7 @@ pdfjsLib.PDFJS.workerSrc = '../../build/webpack/pdf.worker.bundle.js';
 
 // Loading a document.
 
-export function load(viewId) {
-    var pdfPath = './iki_sayfa.pdf';
+export function load(viewId, pdfPath) {
     var loadingTask = pdfjsLib.getDocument(pdfPath);
     var self = this;
 
@@ -28,7 +27,7 @@ export function load(viewId) {
                 var container = document.getElementById('pdf-container' + viewId);
 
                 var pageCanvas = document.createElement('canvas');
-                pageCanvas.id = 'pdf-' + viewId + '-page-canvas-' + i;
+                pageCanvas.id = 'pdf-' + viewId + '-page-' + i;
                 container.appendChild(pageCanvas);
 
                 var scale = container.clientWidth / viewport.width;

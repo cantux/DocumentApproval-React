@@ -35,10 +35,12 @@ export class CheckboxComponent extends React.Component<CheckboxProps, CheckboxSt
     }
 
     public render (): JSX.Element {
-
+        const wordWrap = {"word-wrap": "break-word"};
         return (
             <Panel>
-                {this.props.document.name} {this.props.document.documentLink}
+                <div style={wordWrap}>
+                     {this.props.document.name} {this.props.document.documentLink}
+                </div>
                 <br/>
                 <Checkbox
                     label="Dökümanı okudum, şartları kabul ediyorum."

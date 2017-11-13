@@ -4,12 +4,12 @@ import './App.css';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { FormComponent } from './FormComponent';
-import { DocumentsTableComponent } from './DocumentsTableComponent';
-import { DocumentWizardComponent } from "./DocumentWizardComponent";
-import { DocumentWizardNodeComponent } from "./DocumentWizardNodeComponent";
-import { PdfListComponent } from "./UnrolledListComponent";
-import { AccordionListComponent} from "./AccordionListComponent";
+import { FormComponent } from './form/FormComponent';
+import { DocumentsTableComponent } from './table/DocumentsTableComponent';
+import { DocumentWizardComponent } from "./wizard/DocumentWizardComponent";
+import { DocumentWizardNodeComponent } from "./wizard/DocumentWizardNodeComponent";
+import { PdfListComponent } from "./unrolled/UnrolledListComponent";
+import { AccordionListComponent} from "./accordion/AccordionListComponent";
 
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/omega/theme.css';

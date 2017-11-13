@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ErrorComponent } from "./ErrorComponent";
+import { ErrorComponent } from "../common/ErrorComponent";
 
 import { Button } from 'primereact/components/button/Button';
 import { Panel } from 'primereact/components/panel/Panel';

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ErrorComponent } from "./ErrorComponent";
+import { ErrorComponent } from "../common/ErrorComponent";
 
 // import * as rpn from 'request-promise-native';
 

@@ -6,7 +6,7 @@ import { DataTable } from 'primereact/components/datatable/DataTable';
 import { Column } from 'primereact/components/column/Column';
 import { Panel } from 'primereact/components/panel/Panel';
 
-import { ErrorComponent } from "./ErrorComponent";
+import { ErrorComponent } from "../common/ErrorComponent";
 
 import * as rpn from 'request-promise-native';
 

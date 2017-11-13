@@ -4,7 +4,7 @@ import {Checkbox} from 'primereact/components/checkbox/Checkbox';
 import {Button} from 'primereact/components/button/Button';
 import {InputText} from 'primereact/components/inputtext/InputText';
 
-import {ErrorComponent} from "./ErrorComponent";
+import {ErrorComponent} from "../common/ErrorComponent";
 
 import * as rpn from 'request-promise-native';
 

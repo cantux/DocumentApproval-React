@@ -35,7 +35,7 @@ export class CheckboxComponent extends React.Component<CheckboxProps, CheckboxSt
     }
 
     public render (): JSX.Element {
-        const wordWrap = {"word-wrap": "break-word"};
+        const wordWrap = {"wordWrap": "break-word"};
         return (
             <Panel>
                 <div style={wordWrap}>

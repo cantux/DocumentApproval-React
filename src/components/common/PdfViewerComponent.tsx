@@ -10,7 +10,7 @@ interface Document {
     downloaded: boolean
 }
 interface PdfViewerProps {
-    document: Document | null;
+    document: Document;
     documentIndex: number;
     lazy: boolean;
     scrollToEndEventCb: () => any;
@@ -35,18 +35,18 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
     componentWillUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
         // load the document if it hasn't been loaded before
         if(!this.state.loaded && !nextState.loaded){
-            this.loadPdfSetStateAndScrollEvent(this.props.document ? this.props.document.documentLink : "", this.props.scrollToEndEventCb);
+            this.loadPdfSetStateAndScrollEvent(this.props.document.documentLink, this.props.scrollToEndEventCb);
         }
     }
 
     componentDidMount () {
         if(this.props.lazy){
-            this.loadPdfSetStateAndScrollEvent(this.props.document ? this.props.document.documentLink : "", this.props.scrollToEndEventCb);
+            this.loadPdfSetStateAndScrollEvent(this.props.document.documentLink, this.props.scrollToEndEventCb);
         }
     }
 
     private loadPdfSetStateAndScrollEvent (documentLink: string, scrolledToEndEventCb: () => any) {
-        viewer.load(this.props.documentIndex, '/iki_sayfa.pdf');
+        viewer.load(this.props.documentIndex, documentLink);
         this.setState({loaded: true});
 
         if (document && !this.scrollToEndEvent){

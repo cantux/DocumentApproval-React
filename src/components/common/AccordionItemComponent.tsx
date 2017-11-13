@@ -15,7 +15,7 @@ interface Document {
 }
 interface AccordionItemProps {
     documentIndex: number;
-    document: Document | null;
+    document: Document;
     onDocumentReadCheckedCb: (key: number) => void;
     activeAccordion: number | null;
 }

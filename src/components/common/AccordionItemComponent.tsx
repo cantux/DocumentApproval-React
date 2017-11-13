@@ -8,10 +8,10 @@ import { CheckboxComponent } from "./CheckboxComponent";
 import { PdfViewerComponent } from './PdfViewerComponent';
 
 interface Document {
-    documentLink: string;
+    link: string;
     name: string;
     detail: string;
-    downloaded: boolean;
+    approved: boolean;
 }
 interface AccordionItemProps {
     documentIndex: number;

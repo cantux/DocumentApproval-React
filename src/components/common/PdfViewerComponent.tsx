@@ -4,10 +4,10 @@ let viewer = require('./../../viewer.js');
 
 // Types
 interface Document {
-    documentLink: string;
+    link: string;
     name: string;
     detail: string;
-    downloaded: boolean
+    approved: boolean
 }
 interface PdfViewerProps {
     document: Document;
@@ -35,18 +35,18 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
     componentWillUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
         // load the document if it hasn't been loaded before
         if(!this.state.loaded && !nextState.loaded){
-            this.loadPdfSetStateAndScrollEvent(this.props.document.documentLink, this.props.scrollToEndEventCb);
+            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb);
         }
     }
 
     componentDidMount () {
         if(this.props.lazy){
-            this.loadPdfSetStateAndScrollEvent(this.props.document.documentLink, this.props.scrollToEndEventCb);
+            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb);
         }
     }
 
-    private loadPdfSetStateAndScrollEvent (documentLink: string, scrolledToEndEventCb: () => any) {
-        viewer.load(this.props.documentIndex, documentLink);
+    private loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any) {
+        viewer.load(this.props.documentIndex, link);
         this.setState({loaded: true});
 
         if (document && !this.scrollToEndEvent){

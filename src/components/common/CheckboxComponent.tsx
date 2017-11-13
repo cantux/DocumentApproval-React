@@ -7,10 +7,10 @@ import { Panel } from 'primereact/components/panel/Panel';
 
 // Types
 interface Document {
-    documentLink: string;
+    link: string;
     name: string;
     detail: string;
-    downloaded: boolean
+    approved: boolean
 }
 interface CheckboxProps {
     documentIndex: number;
@@ -39,7 +39,7 @@ export class CheckboxComponent extends React.Component<CheckboxProps, CheckboxSt
         return (
             <Panel>
                 <div style={wordWrap}>
-                     {this.props.document.name} {this.props.document.documentLink}
+                     {this.props.document.name} {this.props.document.link}
                 </div>
                 <br/>
                 <Checkbox

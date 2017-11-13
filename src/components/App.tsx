@@ -8,7 +8,8 @@ import { FormComponent } from './form/FormComponent';
 import { DocumentsTableComponent } from './table/DocumentsTableComponent';
 import { DocumentWizardComponent } from "./wizard/DocumentWizardComponent";
 import { DocumentWizardNodeComponent } from "./wizard/DocumentWizardNodeComponent";
-import { PdfListComponent } from "./unrolled/UnrolledListComponent";
+import { UnrolledListComponent } from "./unrolled/UnrolledListComponent";
+import { AccordionRedirectorComponent } from "./accordion/AccordionRedirectorComponent";
 import { AccordionListComponent} from "./accordion/AccordionListComponent";
 
 import 'primereact/resources/primereact.min.css';
@@ -36,7 +37,8 @@ class App extends React.Component<AppProps, AppState> {
                         <Route path="/table/:documentId" component={DocumentsTableComponent}/>
                         <Route exact path="/wiz/:documentId" component={DocumentWizardComponent}/>
                         <Route exact path="/wiz/:documentId/node/:nodeId" component={DocumentWizardNodeComponent}/>
-                        <Route path="/pdf/:documentId/node/:nodeId" component={PdfListComponent}/>
+                        <Route path="/pdf/:documentId/node/:nodeId" component={UnrolledListComponent}/>
+                        <Route exact path="/accor/:documentId" component={AccordionRedirectorComponent}/>
                         <Route path="/accor/:documentId/node/:nodeId" component={AccordionListComponent}/>
                     </div>
                 </Router>

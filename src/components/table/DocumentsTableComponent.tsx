@@ -13,7 +13,7 @@ import * as rpn from 'request-promise-native';
 // Types
 import { match } from 'react-router-dom';
 interface Document {
-    documentLink: string;
+    link: string;
 }
 interface NavParam {
     documentId: number;
@@ -59,18 +59,18 @@ export class DocumentsTableComponent extends React.Component<DocumentsTableProps
 
     componentDidMount () {
         this.mockDocuments = [
-            {"documentLink": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=1"},
-            {"documentLink": "second"},
-            {"documentLink": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=3"},
-            {"documentLink": "fourth"},
-            {"documentLink": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=5"},
-            {"documentLink": "sixth"},
-            {"documentLink": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=7"},
-            {"documentLink": "eighth"},
-            {"documentLink": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=9"},
-            {"documentLink": "tenth"},
-            {"documentLink": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=11"},
-            {"documentLink": "twelweth"}];
+            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=1"},
+            {"link": "second"},
+            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=3"},
+            {"link": "fourth"},
+            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=5"},
+            {"link": "sixth"},
+            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=7"},
+            {"link": "eighth"},
+            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=9"},
+            {"link": "tenth"},
+            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=11"},
+            {"link": "twelweth"}];
         this.setState({documentsLength: this.mockDocuments.length});
     }
 
@@ -110,11 +110,11 @@ export class DocumentsTableComponent extends React.Component<DocumentsTableProps
 
     public render (): JSX.Element {
         let cols = [
-            {field: 'documentLink', header: 'İndirilmemiş'}
+            {field: 'link', header: 'İndirilmemiş'}
         ];
 
         let columnBody = (rowData: any, column: any) => {
-            return <div onClick={this.columnClicked}>{rowData.documentLink}</div>; //<a href=/>
+            return <div onClick={this.columnClicked}>{rowData.link}</div>; //<a href=/>
         };
 
         const wordWrap = {"word-wrap": "break-word"};

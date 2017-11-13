@@ -10,10 +10,10 @@ import { ApprovalComponent } from '../common/ApprovalComponent'
 import { match } from 'react-router-dom';
 // Types
 interface Document {
-    documentLink: string;
+    link: string;
     name: string;
     detail: string;
-    downloaded: boolean
+    approved: boolean
 }
 interface NavParam {
     documentId: number;
@@ -30,7 +30,7 @@ interface UnrolledListState {
 }
 // End of Types
 
-export class PdfListComponent extends React.Component<UnrolledListProps, UnrolledListState> {
+export class UnrolledListComponent extends React.Component<UnrolledListProps, UnrolledListState> {
     constructor(props: UnrolledListProps) {
         super(props);
         this.state = {allChecked: false, isValid: false, documents: []};
@@ -38,18 +38,18 @@ export class PdfListComponent extends React.Component<UnrolledListProps, Unrolle
     }
 
     mockDocuments: Document[] = [
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/0?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "documentLink": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/1?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "fourth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/2?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "sixth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/3?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "eighth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/4?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "tenth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/5?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "twelweth"}];
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/0?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "link": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/1?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "fourth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/2?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "sixth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/3?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "eighth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/4?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "tenth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/5?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"}];
 
     componentWillMount () {
         setTimeout(() => {
@@ -63,9 +63,9 @@ export class PdfListComponent extends React.Component<UnrolledListProps, Unrolle
         let _documents = this.state.documents;
         if(_documents[key])
         {
-            _documents[key].downloaded = !_documents[key].downloaded;
+            _documents[key].approved = !_documents[key].approved;
         }
-        this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["downloaded"])) });
+        this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["approved"])) });
     }
 
     public render (): JSX.Element {

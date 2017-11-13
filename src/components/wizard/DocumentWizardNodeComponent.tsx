@@ -12,7 +12,7 @@ import * as rpn from 'request-promise-native';
 import { match } from 'react-router-dom';
 // Types
 interface Document {
-    documentLink: string;
+    link: string;
     name: string;
     detail: string;
     downloaded: boolean
@@ -42,18 +42,18 @@ export class DocumentWizardNodeComponent extends React.Component<DocumentWizardN
     }
 
     mockDocuments: Document[] = [
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/0?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "documentLink": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/1?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "fourth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/2?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "sixth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/3?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "eighth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/4?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "tenth"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/5?t=123"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "twelweth"}];
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/0?t=123"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "link": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/1?t=123"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "fourth"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/2?t=123"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "sixth"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/3?t=123"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "eighth"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/4?t=123"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "tenth"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/5?t=123"},
+        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"}];
 
     componentWillMount () {
         rpn({
@@ -166,8 +166,8 @@ export class DocumentWizardNodeComponent extends React.Component<DocumentWizardN
                                             </div>
                                                 <div className="ui-g-12">
                                                     <a
-                                                        href={documentExists ?  this.state.documents[this.props.match.params.nodeId].documentLink : '#'}
-                                                        download={documentExists ?  this.state.documents[this.props.match.params.nodeId].documentLink : 'Empty'}
+                                                        href={documentExists ?  this.state.documents[this.props.match.params.nodeId].link : '#'}
+                                                        download={documentExists ?  this.state.documents[this.props.match.params.nodeId].link : 'Empty'}
                                                         onClick={this.documentDownloaded}
                                                     >
                                                     <Button

@@ -7,15 +7,17 @@ import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordi
 import { match } from 'react-router-dom';
 import {ApprovalComponent} from "../common/ApprovalComponent";
 
+import * as rpn from 'request-promise-native';
+
 interface NavParam {
     documentId: number;
     nodeId: number;
 }
 interface Document {
-    documentLink: string;
+    link: string;
     name: string;
     detail: string;
-    downloaded: boolean;
+    approved: boolean;
 }
 interface AccordionListProps {
     match: match<NavParam>;
@@ -41,39 +43,61 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     }
 
     mockDocuments: Document[] = [
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"},
-        {"downloaded": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "documentLink": "/iki_sayfa.pdf"}
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"}
     ];
 
     componentWillMount () {
-        setTimeout(() => {
-            if (this.mockDocuments) {
-                this.setState({ isValid: true, documents: this.mockDocuments });
+        rpn({
+            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.nodeId}`,
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        }, 1000);
+        }).then((response) => {
+            console.log('get documents response', response);
+            this.setState({ isValid: true, documents: response });
+        });
+        // setTimeout(() => {
+        //     if (this.mockDocuments) {
+        //         this.setState({ isValid: true, documents: this.mockDocuments });
+        //     }
+        // }, 1000);
     }
 
     sendApproval () {
-        console.log('todo POST list')
+        //console.log('todo POST list')
+        rpn({
+            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.nodeId}`,
+            json: true,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.documents)
+        }).then((response) => {
+            console.log('approval response', response);
+        });
     }
 
     onDocumentReadChecked (key: number) {
         let _documents = this.state.documents;
         if(_documents[key])
         {
-            _documents[key].downloaded = !_documents[key].downloaded;
+            _documents[key].approved = !_documents[key].approved;
         }
-        this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["downloaded"])), activeAccordion: key + 1 });
+        this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["approved"])), activeAccordion: key + 1 });
     }
 
     // onAccordionTabOpen (e: any) {

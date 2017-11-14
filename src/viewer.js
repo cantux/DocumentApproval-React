@@ -13,26 +13,30 @@ pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdfjs-dist/build/pdf.worke
 
 // Loading a document.
 
-export function load(viewId, pdfPath) {
+export function load(viewId, pdfPath, zoomScale) {
     var loadingTask = pdfjsLib.getDocument(pdfPath);
     var self = this;
 
     loadingTask.promise.then(function (pdfDocument) {
+        var container = document.getElementById('pdf-container' + viewId);
+        // var prevCanvasElems = container.getElementsByTagName('canvas');
+        // while(prevCanvasElems[0]){
+        //     prevCanvasElems[0].parentNode.removeChild(prevCanvasElems[0])
+        // }
+
         // Request a first page
         for(var i = 1; i <= pdfDocument.numPages; i++) {
             pdfDocument.getPage(i).then(function (pdfPage) {
-
                 var viewport = pdfPage.getViewport(1);
-
-                var container = document.getElementById('pdf-container' + viewId);
 
                 var pageCanvas = document.createElement('canvas');
                 pageCanvas.id = 'pdf-' + viewId + '-page-' + i;
+
                 container.appendChild(pageCanvas);
 
-                var scale = container.clientWidth / viewport.width;
-                console.log('scale is: ', scale);
-                viewport = pdfPage.getViewport(scale);
+                // var scale = container.clientWidth / viewport.width;
+                // console.log('scale is: ', scale * 2);
+                viewport = pdfPage.getViewport(zoomScale);
 
                 pageCanvas.width = viewport.width;
                 pageCanvas.height = viewport.height;
@@ -46,10 +50,7 @@ export function load(viewId, pdfPath) {
                 return renderTask.promise;
             });
         }
-
-
     }).catch(function (reason) {
-        console.error('Error: ' + reason);
+        console.error('viewer.js error: ' + reason);
     });
-
 }

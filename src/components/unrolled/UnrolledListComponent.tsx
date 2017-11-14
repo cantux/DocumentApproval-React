@@ -35,6 +35,28 @@ export class UnrolledListComponent extends React.Component<UnrolledListProps, Un
         super(props);
         this.state = {allChecked: false, isValid: false, documents: []};
         this.onDocumentReadChecked = this.onDocumentReadChecked.bind(this);
+        this.sendApproval = this.sendApproval.bind(this);
+    }
+
+    sendApproval () {
+        console.log('approval comp post');
+        // rpn({
+        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+        //     json: true,
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(this.state.documents)
+        // }).then((response) => {
+        //     console.log('approval response', response);
+        //     this.props.history.push(`/reference/${response}`);
+        // });
+        setTimeout(() => {
+            const response = 123456;
+            console.log('approval response', response);
+            this.props.history.push(`/reference/${response}`);
+        }, 250 );
     }
 
     mockDocuments: Document[] = [
@@ -85,7 +107,7 @@ export class UnrolledListComponent extends React.Component<UnrolledListProps, Un
                 this.state.isValid ?
                 <div>
                     {pdfViewItems}
-                    <ApprovalComponent allChecked={this.state.allChecked}/>
+                    <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
                 </div>
                 : <ErrorComponent message={'Geçersiz döküman onay tablosu.'}/>
             );

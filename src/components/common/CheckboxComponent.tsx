@@ -39,7 +39,7 @@ export class CheckboxComponent extends React.Component<CheckboxProps, CheckboxSt
         return (
             <Panel>
                 <div style={wordWrap}>
-                     {this.props.document.name} {this.props.document.link}
+                     {this.props.document.detail}
                 </div>
                 <br/>
                 <Checkbox

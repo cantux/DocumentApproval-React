@@ -4,20 +4,15 @@ import { AccordionItemComponent } from '../common/AccordionItemComponent';
 
 import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion'
 
-import { match } from 'react-router-dom';
 import {ApprovalComponent} from "../common/ApprovalComponent";
 
-import * as rpn from 'request-promise-native';
+// import * as rpn from 'request-promise-native';
 
+import Document from '../../models/Document';
+import { match } from 'react-router-dom';
 interface NavParam {
     documentId: number;
     nodeId: number;
-}
-interface Document {
-    link: string;
-    name: string;
-    detail: string;
-    approved: boolean;
 }
 interface AccordionListProps {
     match: match<NavParam>;
@@ -43,52 +38,50 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     }
 
     mockDocuments: Document[] = [
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/iki_sayfa.pdf"}
+        {"approved": false, "detail": "Başvuru bilgilerinizi gözden geçirip doğruluğunu kontrol edebilirsiniz.", "name": "Başvuru Formu", "link": "/Basvuru Formu.pdf"},
+        {"approved": false, "detail": "Kredi başvurunuz ile ilgili yasal doküman.", "name": "Kredi Sözleşmesi", "link": "/Kredi Sozlesmesi.pdf"},
+        {"approved": false, "detail": "Bankadan alacağınız hizmetlere ilişkin sözleşme", "name": "Hizmet Sözleşmesi", "link": "/Hizmet Sozlesmesi.pdf"},
+
     ];
 
     componentWillMount () {
-        rpn({
-            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.nodeId}`,
-            json: true,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            console.log('get documents response', response);
-            this.setState({ isValid: true, documents: response });
-        });
-        // setTimeout(() => {
-        //     if (this.mockDocuments) {
-        //         this.setState({ isValid: true, documents: this.mockDocuments });
+        // rpn({
+        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+        //     json: true,
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json'
         //     }
-        // }, 1000);
+        // }).then((response) => {
+        //     console.log('get documents response', response);
+        //     this.setState({ isValid: true, documents: response });
+        // });
+        setTimeout(() => {
+            if (this.mockDocuments) {
+                this.setState({ isValid: true, documents: this.mockDocuments });
+            }
+        }, 1000);
     }
 
     sendApproval () {
-        //console.log('todo POST list')
-        rpn({
-            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.nodeId}`,
-            json: true,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.documents)
-        }).then((response) => {
+        console.log('approval comp post');
+        // rpn({
+        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+        //     json: true,
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(this.state.documents)
+        // }).then((response) => {
+        //     console.log('approval response', response);
+        //     this.props.history.push(`/ref/${response}`);
+        // });
+        setTimeout(() => {
+            const response = 123456;
             console.log('approval response', response);
-        });
+            this.props.history.push(`/ref/${response}`);
+        }, 250 );
     }
 
     onDocumentReadChecked (key: number) {
@@ -97,29 +90,31 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         {
             _documents[key].approved = !_documents[key].approved;
         }
+
+        var appHeaderHeight = (((document||{}).getElementById('app-header')||{}) as Element).clientHeight;
+        window.scrollTo(0, appHeaderHeight + (14 * (key + 1)) / 2);
+
         this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["approved"])), activeAccordion: key + 1 });
     }
 
-    // onAccordionTabOpen (e: any) {
-    //     console.log('open', e)
-    //     this.setState({activeAccordion: null});
-    // }
-
     onAccordionTabClose (e: any) {
-        console.log('close', e.originalEvent.target);
-        // window.scrollTo(e.originalEvent.screenX, e.originalEvent.screenY);
-        console.log('e.originalEvent.screenX: ', e.originalEvent.screenX, "e.originalEvent.screenY: ", e.originalEvent.screenY )
-        var rect = e.originalEvent.target.getBoundingClientRect();
-        console.log(rect.top, rect.right, rect.bottom, rect.left);
-        // window.scrollTo(e.originalEvent.screenX, e.originalEvent.screenY);
-        e.originalEvent.target.scrollTop = 0;
+        console.log('clientHeight: ', e.originalEvent.target.clientHeight);
+
+        var appHeaderHeight = (((document||{}).getElementById('app-header')||{}) as Element).clientHeight;
+
+        window.scrollTo(0, appHeaderHeight + (e.originalEvent.target.clientHeight * e.index) / 2);
+
         this.setState({activeAccordion: e.index});
     }
 
     public render (): JSX.Element {
         const accordionItems = this.state.documents.map((item, index) => {
             return (
-                <AccordionTab key={index} header={item.name}>
+                <AccordionTab
+                    key={index}
+                    header={`${item.name}${item.approved ? "" : " - Okunmamış"}`}
+                >
+
                     <AccordionItemComponent
                         documentIndex={index}
                         document={item}
@@ -134,11 +129,13 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                     <Accordion
                         onTabClose={this.onAccordionTabClose}
                         activeIndex={this.state.activeAccordion}>
+
                         {accordionItems}
+
                     </Accordion>
                 </div>
                 <div className="ui-g-12">
-                    <ApprovalComponent allChecked={this.state.allChecked}/>
+                    <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
                 </div>
             </div>
         );

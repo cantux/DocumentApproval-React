@@ -19,16 +19,19 @@ interface AccordionItemProps {
     onDocumentReadCheckedCb: (key: number) => void;
     activeAccordion: number | null;
 }
-interface AccordionItemStates {}
+interface AccordionItemStates {
+    documentRead: boolean;
+}
 
 export class AccordionItemComponent extends React.Component<AccordionItemProps, AccordionItemStates> {
     constructor(props: AccordionItemProps) {
         super(props);
+        this.state = { documentRead: false };
         this.onScrollToEndEvent = this.onScrollToEndEvent.bind(this);
     }
 
     onScrollToEndEvent () {
-        console.log('scrolled to end');
+        this.setState({documentRead: true});
     }
 
     public render (): JSX.Element {
@@ -42,10 +45,15 @@ export class AccordionItemComponent extends React.Component<AccordionItemProps, 
                         scrollToEndEventCb={this.onScrollToEndEvent}/>
                 </div>
                 <div className="ui-g-12" >
-                    <CheckboxComponent
-                        document={this.props.document}
-                        documentIndex={this.props.documentIndex}
-                        onDocumentReadChecked={this.props.onDocumentReadCheckedCb}/>
+                    {
+                        this.state.documentRead ?
+                        <CheckboxComponent
+                            document={this.props.document}
+                            documentIndex={this.props.documentIndex}
+                            onDocumentReadChecked={this.props.onDocumentReadCheckedCb}/>
+                        : 'Devam etmeden önce tüm dokumanı okuyunuz.'
+                    }
+
                 </div>
             </div>
         );

@@ -17,6 +17,7 @@ interface PdfViewerProps {
 }
 interface PdfViewerState {
     loaded: boolean;
+    zoom: number;
 }
 // End of Types
 
@@ -25,7 +26,9 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
     constructor(props: PdfViewerProps) {
         super(props);
-        this.state = { loaded: false };
+        this.state = { loaded: false, zoom: 1 };
+        this.zoomInClicked = this.zoomInClicked.bind(this);
+        this.zoomOutClicked = this.zoomOutClicked.bind(this);
     }
 
     shouldComponentUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
@@ -35,40 +38,63 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
     componentWillUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
         // load the document if it hasn't been loaded before
         if(!this.state.loaded && !nextState.loaded){
-            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb);
+            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, 1);
         }
     }
 
     componentDidMount () {
         if(this.props.lazy){
-            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb);
+            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, 1);
         }
     }
 
-    private loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any) {
-        viewer.load(this.props.documentIndex, link);
+    private loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any, zoomScale: number) {
+        viewer.load(this.props.documentIndex, link, zoomScale);
         this.setState({loaded: true});
-
         if (document && !this.scrollToEndEvent){
-            console.log(`pdf-container${this.props.documentIndex}`);
             let pdfContainer = document.getElementById(`pdf-container${this.props.documentIndex}`);
-            console.log(pdfContainer);
             if (pdfContainer){
-                console.log('before event reg');
                 this.scrollToEndEvent = pdfContainer.addEventListener('scroll', (e: any) => {
-                    console.log('scrolling');
                     if (pdfContainer && pdfContainer.scrollTop === (pdfContainer.scrollHeight - pdfContainer.offsetHeight))
                     {
-                        alert('this is the end myfriend');
+                        scrolledToEndEventCb();
                     }
                 });
             }
         }
     }
 
+    zoomOutClicked (e: React.MouseEvent<HTMLButtonElement>) {
+        if (this.state.zoom > 0.25){
+            var newZoom = this.state.zoom - 0.10;
+            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, newZoom);
+            this.setState({zoom: newZoom });
+        }
+    }
+
+    zoomInClicked (e: React.MouseEvent<HTMLButtonElement>) {
+        if (this.state.zoom > 0.25){
+            var newZoom = this.state.zoom + 0.10;
+            this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, newZoom);
+            this.setState({zoom: newZoom });
+        }
+    }
+
     public render (): JSX.Element {
+
+        // const fixedTopElement = {
+        //     position:"absolute",
+        //     zIndex:100,
+        //     right: "5%"
+        // } as React.CSSProperties;
+        // const fixedLowerElement = {
+        //     marginTop: "5%",
+        //     position:"absolute",
+        //     zIndex:100,
+        //     right: "5%"
+        // } as React.CSSProperties;
+
         const pdfContainerStyle = {
-            width: '100vw',
             height: '60vh',
             overflow: "auto",
             overflowY: "scroll"
@@ -76,6 +102,16 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
         return (
             <div id={`pdf-container${this.props.documentIndex}`} style={pdfContainerStyle}>
+                {/*<button*/}
+                    {/*id={`zoominbutton${this.props.documentIndex}`}*/}
+                    {/*type="button"*/}
+                    {/*style={fixedTopElement}*/}
+                    {/*onClick={this.zoomInClicked}>zoom in</button>*/}
+                {/*<button*/}
+                    {/*id={`zoomoutbutton${this.props.documentIndex}`}*/}
+                    {/*type="button"*/}
+                    {/*style={fixedLowerElement}*/}
+                    {/*onClick={this.zoomOutClicked}>zoom out</button>*/}
             </div>
         );
     }

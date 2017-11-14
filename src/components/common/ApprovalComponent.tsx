@@ -7,7 +7,10 @@ import * as React from 'react';
 import { Button } from 'primereact/components/button/Button';
 import { Panel } from 'primereact/components/panel/Panel';
 
-interface ApprovalProps { allChecked: boolean}
+interface ApprovalProps {
+    allChecked: boolean;
+    approvalCb: () => void;
+}
 interface ApprovalStates {}
 
 export class ApprovalComponent extends React.Component<ApprovalProps, ApprovalStates> {
@@ -18,7 +21,8 @@ export class ApprovalComponent extends React.Component<ApprovalProps, ApprovalSt
     }
 
     sendApproval () {
-        console.log('todo POST list')
+        console.log('approval comp post');
+        this.props.approvalCb();
     }
 
     public render (): JSX.Element {

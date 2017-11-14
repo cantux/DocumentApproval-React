@@ -6,7 +6,7 @@ import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordi
 
 import {ApprovalComponent} from "../common/ApprovalComponent";
 
-// import * as rpn from 'request-promise-native';
+import * as rpn from 'request-promise-native';
 
 import Document from '../../models/Document';
 import { match } from 'react-router-dom';
@@ -45,43 +45,42 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     ];
 
     componentWillMount () {
-        // rpn({
-        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
-        //     json: true,
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then((response) => {
-        //     console.log('get documents response', response);
-        //     this.setState({ isValid: true, documents: response });
-        // });
-        setTimeout(() => {
-            if (this.mockDocuments) {
-                this.setState({ isValid: true, documents: this.mockDocuments });
+        rpn({
+            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+            json: true,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        }, 1000);
+        }).then((response) => {
+            console.log('get documents response', response);
+            this.setState({ isValid: true, documents: response });
+        });
+        // setTimeout(() => {
+        //     if (this.mockDocuments) {
+        //         this.setState({ isValid: true, documents: this.mockDocuments });
+        //     }
+        // }, 1000);
     }
 
     sendApproval () {
         console.log('approval comp post');
-        // rpn({
-        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
-        //     json: true,
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(this.state.documents)
-        // }).then((response) => {
-        //     console.log('approval response', response);
-        //     this.props.history.push(`/ref/${response}`);
-        // });
-        setTimeout(() => {
-            const response = 123456;
+        rpn({
+            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify(this.state.documents)
+        }).then((response) => {
             console.log('approval response', response);
             this.props.history.push(`/ref/${response}`);
-        }, 250 );
+        });
+        // setTimeout(() => {
+        //     const response = 123456;
+        //     console.log('approval response', response);
+        //     this.props.history.push(`/ref/${response}`);
+        // }, 250 );
     }
 
     onDocumentReadChecked (key: number) {

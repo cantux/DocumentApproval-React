@@ -60,17 +60,17 @@ export class UnrolledListComponent extends React.Component<UnrolledListProps, Un
     }
 
     mockDocuments: Document[] = [
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/0?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "twelweth"},
         {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "link": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/1?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "fourth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/2?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "sixth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/3?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "eighth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/4?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "tenth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/5?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
         {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"}];
 
     componentWillMount () {

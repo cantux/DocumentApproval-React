@@ -7,7 +7,7 @@ import { Panel } from 'primereact/components/panel/Panel';
 import { Checkbox } from 'primereact/components/checkbox/Checkbox';
 import { Growl, GrowlMessage } from 'primereact/components/growl/Growl';
 
-import * as rpn from 'request-promise-native';
+// import * as rpn from 'request-promise-native';
 
 import { match } from 'react-router-dom';
 // Types
@@ -42,46 +42,46 @@ export class DocumentWizardNodeComponent extends React.Component<DocumentWizardN
     }
 
     mockDocuments: Document[] = [
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/0?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "twelweth"},
         {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "link": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/1?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "fourth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/2?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "sixth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/3?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "eighth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/4?t=123"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "tenth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs/5?t=123"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
+        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
         {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"}];
 
     componentWillMount () {
-        rpn({
-            uri: "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=123",
-            method: 'GET',
-            json: true
-        }).then((response) => {
-            this.setState({ isValid: true, documents: response });
-            let route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
-            if (this.props.match.params.nodeId)
-            {
-                route = "/wiz/" + this.props.match.params.documentId + "/node/" + this.props.match.params.nodeId;
-            }
-            this.props.history.push(route);
-
-        }).catch((err) => console.log(err));
-
-        // setTimeout(() => {
-        //     if (this.mockDocuments) {
-        //         this.setState({ isValid: true, documents: this.mockDocuments });
-        //         let route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
-        //         if (this.props.match.params.nodeId)
-        //         {
-        //             route = "/wiz/" + this.props.match.params.documentId + "/node/" + this.props.match.params.nodeId;
-        //         }
-        //         this.props.history.push(route);
+        // rpn({
+        //     uri: "https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=123",
+        //     method: 'GET',
+        //     json: true
+        // }).then((response) => {
+        //     this.setState({ isValid: true, documents: response });
+        //     let route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
+        //     if (this.props.match.params.nodeId)
+        //     {
+        //         route = "/wiz/" + this.props.match.params.documentId + "/node/" + this.props.match.params.nodeId;
         //     }
-        // }, 250);
+        //     this.props.history.push(route);
+        //
+        // }).catch((err) => console.log(err));
+
+        setTimeout(() => {
+            if (this.mockDocuments) {
+                this.setState({ isValid: true, documents: this.mockDocuments });
+                let route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
+                if (this.props.match.params.nodeId)
+                {
+                    route = "/wiz/" + this.props.match.params.documentId + "/node/" + this.props.match.params.nodeId;
+                }
+                this.props.history.push(route);
+            }
+        }, 250);
     }
 
     private sendApproval = () => {

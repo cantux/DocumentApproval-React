@@ -34,7 +34,7 @@ export class AccordionRedirectorComponent extends React.Component<AccordionRedir
         // }, 250);
 
         rpn({
-            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+            uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
             method: 'GET',
             json: true
         }).then((response: any) => {

@@ -12,7 +12,7 @@ export class ErrorComponent extends React.Component<ErrorProps, ErrorStates> {
 
     render () {
         return (
-            <div> Hata!! {this.props.message}</div>
+            <div> {this.props.message}</div>
         );
     }
 }

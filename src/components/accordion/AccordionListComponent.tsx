@@ -46,7 +46,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
 
     componentWillMount () {
         rpn({
-            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+            uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
             json: true,
             method: 'GET',
             headers: {
@@ -64,9 +64,9 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     }
 
     sendApproval () {
-        console.log('approval comp post');
+        // console.log('approval comp post');
         rpn({
-            uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+            uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'

@@ -64,7 +64,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     }
 
     sendApproval () {
-        // console.log('approval comp post');
+        console.log('approval comp post');
         rpn({
             uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
             method: 'POST',
@@ -123,20 +123,25 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         });
 
         return (
-            <div className="ui-g">
-                <div className="ui-g-12">
-                    <Accordion
-                        onTabClose={this.onAccordionTabClose}
-                        activeIndex={this.state.activeAccordion}>
+            this.state.isValid ?
+                <div className="ui-g">
+                    <div className="ui-g-12">
+                        <Accordion
+                            onTabClose={this.onAccordionTabClose}
+                            activeIndex={this.state.activeAccordion}>
 
-                        {accordionItems}
+                            {accordionItems}
 
-                    </Accordion>
+                        </Accordion>
+                    </div>
+                    <div className="ui-g-12">
+                        <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
+                    </div>
                 </div>
-                <div className="ui-g-12">
-                    <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
+                :
+                <div>
+                    {'Lütfen Bekleyiniz...'}
                 </div>
-            </div>
         );
     }
 }

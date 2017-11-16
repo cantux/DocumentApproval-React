@@ -13,6 +13,8 @@ import { AccordionRedirectorComponent } from "./accordion/AccordionRedirectorCom
 import { AccordionListComponent} from "./accordion/AccordionListComponent";
 import {ReferenceCodeComponent} from "./common/ReferenceCodeComponent";
 
+const logo = require('../assets/images/fibabanka_logo.png');
+
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/omega/theme.css';
 import 'font-awesome/css/font-awesome.css';
@@ -26,10 +28,23 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
+        const logoStyle = {
+            width: "230px",
+            height: "50px",
+            maxWidth: "100%",
+            padding:0
+        } as React.CSSProperties;
         return (
             <div className="App">
                 <div className="App-header" id="app-header">
-                    <h2>Döküman Onay</h2>
+                    <div className="ui-g">
+                        <div className="ui-g-12">
+                            <img src={logo} style={logoStyle}/>
+                        </div>
+                        <div className="ui-g-12">
+                            <h2>Döküman Onay</h2>
+                        </div>
+                    </div>
                 </div>
                 <Router basename={process.env.PUBLIC_URL}>
                     <div className="App-intro">

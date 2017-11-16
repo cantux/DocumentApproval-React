@@ -8,8 +8,6 @@
 
 .App-header {
   background-color: #222;
-  height: 80px;
-  padding: 20px;
   color: white;
 }
 
@@ -18,5 +16,5 @@
 }
 
 /*.ui-accordion-unread.ui-accordion-header.ui-state-default {*/
-  /*background: #ffe4c4*/
+  /*background: #fffcd7*/
 /*}*/

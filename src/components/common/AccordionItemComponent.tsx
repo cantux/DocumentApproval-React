@@ -26,7 +26,7 @@ interface AccordionItemStates {
 export class AccordionItemComponent extends React.Component<AccordionItemProps, AccordionItemStates> {
     constructor(props: AccordionItemProps) {
         super(props);
-        this.state = { documentRead: false };
+        this.state = { documentRead: props.document.approved || false };
         this.onScrollToEndEvent = this.onScrollToEndEvent.bind(this);
     }
 

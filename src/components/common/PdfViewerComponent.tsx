@@ -55,7 +55,8 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
             let pdfContainer = document.getElementById(`pdf-container${this.props.documentIndex}`);
             if (pdfContainer){
                 this.scrollToEndEvent = pdfContainer.addEventListener('scroll', (e: any) => {
-                    if (pdfContainer && pdfContainer.scrollTop === (pdfContainer.scrollHeight - pdfContainer.offsetHeight))
+                    // pdfContainer ? console.log("scroll", pdfContainer.scrollTop ,pdfContainer.scrollHeight ,pdfContainer.offsetHeight): void 0;
+                    if (pdfContainer && Math.ceil(pdfContainer.scrollTop) >= (pdfContainer.scrollHeight - pdfContainer.offsetHeight))
                     {
                         scrolledToEndEventCb();
                     }

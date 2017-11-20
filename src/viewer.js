@@ -48,6 +48,15 @@ export function load(viewId, pdfPath, zoomScale) {
                     viewport: viewport
                 });
                 return renderTask.promise;
+            }).catch(function (reason) {
+                try{
+                    console.log('viewer.js getPage.catch raw reason: ', reason);
+                    console.log('viewer.js getPage.catch response: ', reason.response);
+                }
+                catch (err) {
+                    console.log('catch of a catch, we are in too deep: ', err);
+                }
+
             });
         }
     }).catch(function (reason) {

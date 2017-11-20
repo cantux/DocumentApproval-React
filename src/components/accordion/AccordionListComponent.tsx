@@ -1,17 +1,19 @@
 import * as React from "react";
 
 import { AccordionItemComponent } from '../common/AccordionItemComponent';
+import { LoadingComponent } from '../common/LoadingComponent';
 
 import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion'
 
 import {ApprovalComponent} from "../common/ApprovalComponent";
 
-import * as rpn from 'request-promise-native';
+// import * as rpn from 'request-promise-native';
 
 import Document from '../../models/Document';
 import { match } from 'react-router-dom';
+import {ErrorComponent} from "../common/ErrorComponent";
 interface NavParam {
-    documentId: number;
+    documentId: string;
     nodeId: number;
 }
 interface AccordionListProps {
@@ -19,8 +21,11 @@ interface AccordionListProps {
     history: any;
 }
 interface AccordionListState {
-    allChecked: boolean;
+    error: boolean;
+    errorMessage: string;
+
     isValid: boolean;
+    allChecked: boolean;
     documents: Document[];
     lazy: boolean;
     activeAccordion: number | null;
@@ -30,8 +35,7 @@ interface AccordionListState {
 export class AccordionListComponent extends React.Component<AccordionListProps, AccordionListState> {
     constructor(props: AccordionListProps) {
         super(props);
-        console.log('first active accord: ', this.props.match.params.nodeId);
-        this.state = {allChecked: false, isValid: false, documents: [], lazy: false, activeAccordion: this.props.match.params.nodeId};
+        this.state = {error: false, errorMessage: "no error, you shouldn't see this", allChecked: false, isValid: false, documents: [], lazy: false, activeAccordion: this.props.match.params.nodeId};
         this.sendApproval = this.sendApproval.bind(this);
         this.onDocumentReadChecked = this.onDocumentReadChecked.bind(this);
         this.onAccordionTabClose = this.onAccordionTabClose.bind(this);
@@ -45,42 +49,57 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     ];
 
     componentWillMount () {
-        rpn({
-            uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
-            json: true,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            console.log('get documents response', response);
-            this.setState({ isValid: true, documents: response });
-        });
-        // setTimeout(() => {
-        //     if (this.mockDocuments) {
-        //         this.setState({ isValid: true, documents: this.mockDocuments });
+        // rpn({
+        //     uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+        //     json: true,
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json'
         //     }
-        // }, 1000);
+        // }).then((response) => {
+        //     console.log('get documents response', response);
+        //     this.setState({ isValid: true, documents: response });
+        // }).catch((reason: any) => {
+        //     console.log(reason);
+        //     this.setState({ error: true, errorMessage: "Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz."});
+        // });
+        setTimeout(() => {
+            if(this.props.match.params.documentId === "noDoc") {
+                this.setState({ error: true, errorMessage: "Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz."});
+            }
+            else if (this.mockDocuments) {
+                this.setState({ isValid: true, documents: this.mockDocuments });
+            }
+        }, 3000);
     }
 
     sendApproval () {
         console.log('approval comp post');
-        rpn({
-            uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify(this.state.documents)
-        }).then((response) => {
-            console.log('approval response', response);
-            this.props.history.push(`/ref/${response}`);
-        });
-        // setTimeout(() => {
-        //     const response = 123456;
+        // rpn({
+        //     uri: `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json; charset=utf-8'
+        //     },
+        //     body: JSON.stringify(this.state.documents)
+        // }).then((response) => {
         //     console.log('approval response', response);
         //     this.props.history.push(`/ref/${response}`);
-        // }, 250 );
+        // }).catch((reason) => {
+        //     console.log(reason);
+        //     this.setState({error: true, errorMessage: "Onaylama başarısız. Referans Kodu oluşturulamadı. Sürece kasadan devam ediniz."});
+        // });
+        setTimeout(() => {
+            if(this.props.match.params.documentId === "noRef") {
+                this.setState({ error: true, errorMessage: "Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz."});
+            }
+            else {
+                const response = 123456;
+                console.log('approval response', response);
+                this.props.history.push(`/ref/${response}`);
+            }
+
+        }, 250 );
     }
 
     onDocumentReadChecked (key: number) {
@@ -97,7 +116,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     }
 
     onAccordionTabClose (e: any) {
-        console.log('clientHeight: ', e.originalEvent.target.clientHeight);
+        // console.log('clientHeight: ', e.originalEvent.target.clientHeight);
 
         var appHeaderHeight = (((document||{}).getElementById('app-header')||{}) as Element).clientHeight;
 
@@ -119,29 +138,34 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                         document={item}
                         onDocumentReadCheckedCb={this.onDocumentReadChecked}
                         activeAccordion={this.state.activeAccordion}/>
+
                 </AccordionTab>);
         });
 
         return (
-            this.state.isValid ?
-                <div className="ui-g">
-                    <div className="ui-g-12">
-                        <Accordion
-                            onTabClose={this.onAccordionTabClose}
-                            activeIndex={this.state.activeAccordion}>
-
-                            {accordionItems}
-
-                        </Accordion>
-                    </div>
-                    <div className="ui-g-12">
-                        <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
-                    </div>
-                </div>
+            this.state.error?
+                <ErrorComponent message={this.state.errorMessage}/>
                 :
-                <div>
-                    {'Lütfen Bekleyiniz...'}
-                </div>
+                this.state.isValid ?
+                    <div className="ui-g">
+                        <div className="ui-g-12">
+                            <Accordion
+                                onTabClose={this.onAccordionTabClose}
+                                activeIndex={this.state.activeAccordion}>
+
+                                {accordionItems}
+
+                            </Accordion>
+                        </div>
+                        <div className="ui-g-12">
+                            <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
+                        </div>
+                    </div>
+                    :
+                    <div>
+                        {'Lütfen Bekleyiniz...'}
+                        <LoadingComponent/>
+                    </div>
         );
     }
 }

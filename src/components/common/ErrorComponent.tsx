@@ -3,16 +3,9 @@ import * as React from 'react';
 interface ErrorProps {
     message: string
 }
-interface ErrorStates {}
 
-export class ErrorComponent extends React.Component<ErrorProps, ErrorStates> {
-    constructor(props: ErrorProps) {
-        super(props);
-    }
-
-    render () {
-        return (
-            <div> {this.props.message}</div>
-        );
-    }
+export const ErrorComponent: React.SFC<ErrorProps>  = (props: ErrorProps) => {
+    return (
+        <div> {props.message}</div>
+    );
 }

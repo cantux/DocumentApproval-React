@@ -53,7 +53,6 @@ export class AccordionItemComponent extends React.Component<AccordionItemProps, 
                             onDocumentReadChecked={this.props.onDocumentReadCheckedCb}/>
                         : 'Devam etmeden önce tüm dokumanı okuyunuz.'
                     }
-
                 </div>
             </div>
         );

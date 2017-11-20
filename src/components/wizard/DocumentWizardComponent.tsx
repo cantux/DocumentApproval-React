@@ -2,12 +2,13 @@ import * as React from "react";
 
 import { ErrorComponent } from "../common/ErrorComponent";
 
-// import * as rpn from 'request-promise-native';
+import { DocumentService } from "../../services/DocumentRetriever";
 
 // Types
+import Document from '../../models/Document';
 import { match } from 'react-router-dom';
 interface NavParam {
-    documentId: number;
+    referralId: string;
 }
 interface DocumentWizardProps {
     match: match<NavParam>;
@@ -26,30 +27,15 @@ export class DocumentWizardComponent extends React.Component<DocumentWizardProps
     }
 
     componentWillMount () {
-        setTimeout(() => {
-            this.setState({ isValid: true });
-            const route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
-            this.props.history.push(route);
-
-        }, 250);
-
-        // rpn({
-        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
-        //     json: true,
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then((response) => {
-        //     this.setState({ isValid: true });
-        //     const route = "/wiz/" + this.props.match.params.documentId + "/node/" + 0;
-        //     this.props.history.push(route);
-        // });
-
+        DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
+            (documents: Document[]) => {
+                this.setState({ isValid: true });
+                const route = "/wiz/" + this.props.match.params.referralId + "/node/" + 0;
+                this.props.history.push(route);
+            });
     }
 
     public render (): JSX.Element {
-
         return (
             <div>
                 {

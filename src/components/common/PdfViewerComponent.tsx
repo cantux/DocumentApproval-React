@@ -22,7 +22,7 @@ interface PdfViewerState {
 // End of Types
 
 export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewerState> {
-    private scrollToEndEvent : any = null;
+    private scrollToEndEvent: any = null;
 
     constructor(props: PdfViewerProps) {
         super(props);
@@ -48,7 +48,7 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
         }
     }
 
-    private loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any, zoomScale: number) {
+    loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any, zoomScale: number) {
         viewer.load(this.props.documentIndex, link, zoomScale);
         this.setState({loaded: true});
         if (document && !this.scrollToEndEvent){
@@ -56,8 +56,7 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
             if (pdfContainer){
                 this.scrollToEndEvent = pdfContainer.addEventListener('scroll', (e: any) => {
                     // pdfContainer ? console.log("scroll", pdfContainer.scrollTop ,pdfContainer.scrollHeight ,pdfContainer.offsetHeight): void 0;
-                    if (pdfContainer && Math.ceil(pdfContainer.scrollTop) >= (pdfContainer.scrollHeight - pdfContainer.offsetHeight))
-                    {
+                    if (pdfContainer && Math.ceil(pdfContainer.scrollTop) >= (pdfContainer.scrollHeight - pdfContainer.offsetHeight)) {
                         scrolledToEndEventCb();
                     }
                 });
@@ -67,7 +66,7 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
     zoomOutClicked (e: React.MouseEvent<HTMLButtonElement>) {
         if (this.state.zoom > 0.25){
-            var newZoom = this.state.zoom - 0.10;
+            let newZoom = this.state.zoom - 0.10;
             this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, newZoom);
             this.setState({zoom: newZoom });
         }
@@ -75,7 +74,7 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
     zoomInClicked (e: React.MouseEvent<HTMLButtonElement>) {
         if (this.state.zoom > 0.25){
-            var newZoom = this.state.zoom + 0.10;
+            let newZoom = this.state.zoom + 0.10;
             this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, newZoom);
             this.setState({zoom: newZoom });
         }

@@ -48,9 +48,9 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start:mock": "set USE_MOCK=true&&node scripts/start.js",
     "build:relative:tomcat": "set PUBLIC_URL=/InstantWeb/faces/mobile/&&node scripts/build.js",
-    "build:absolute": "node scripts/build.js",
+    "build:absolute:heroku": "set USE_MOCK=true&&node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {

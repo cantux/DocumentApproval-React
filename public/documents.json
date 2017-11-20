@@ -1,5 +1,5 @@
 [
-	{"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/Basvuru Formu.pdf"},
-	{"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/Hizmet Sozlesmesi.pdf"},
-	{"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "/Kredi Sozlesmesi.pdf"},
+	{"approved": false, "detail": "Basvuru formu ile ilgili açıklama.", "name": "Basvuru Formu", "link": "/Basvuru Formu.pdf"},
+	{"approved": false, "detail": "Hizmet Sozlesmesi ile ilgili açıklama.", "name": "Hizmet Sozlesmesi", "link": "/Hizmet Sozlesmesi.pdf"},
+	{"approved": false, "detail": "Kredi Sozlesmesi ile ilgili açıklama.", "name": "Kredi Sozlesmesi", "link": "/Kredi Sozlesmesi.pdf"},
 ]

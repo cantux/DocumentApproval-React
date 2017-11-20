@@ -6,12 +6,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { FormComponent } from './form/FormComponent';
 import { DocumentsTableComponent } from './table/DocumentsTableComponent';
-import { DocumentWizardComponent } from "./wizard/DocumentWizardComponent";
-import { DocumentWizardNodeComponent } from "./wizard/DocumentWizardNodeComponent";
-import { UnrolledListComponent } from "./unrolled/UnrolledListComponent";
-import { AccordionRedirectorComponent } from "./accordion/AccordionRedirectorComponent";
-import { AccordionListComponent} from "./accordion/AccordionListComponent";
-import {ReferenceCodeComponent} from "./common/ReferenceCodeComponent";
+import { DocumentWizardComponent } from './wizard/DocumentWizardComponent';
+import { DocumentWizardNodeComponent } from './wizard/DocumentWizardNodeComponent';
+import { UnrolledListComponent } from './unrolled/UnrolledListComponent';
+import { AccordionRedirectorComponent } from './accordion/AccordionRedirectorComponent';
+import { AccordionListComponent } from './accordion/AccordionListComponent';
+import { ReferenceCodeComponent } from './common/ReferenceCodeComponent';
 
 const logo = require('../assets/images/fibabanka_logo.png');
 
@@ -29,11 +29,12 @@ class App extends React.Component<AppProps, AppState> {
 
     render() {
         const logoStyle = {
-            width: "230px",
-            height: "50px",
-            maxWidth: "100%",
-            padding:0
+            width: '230px',
+            height: '50px',
+            maxWidth: '100%',
+            padding: 0
         } as React.CSSProperties;
+        // noinspection TsLint
         return (
             <div className="App">
                 <div className="App-header" id="app-header">
@@ -48,13 +49,13 @@ class App extends React.Component<AppProps, AppState> {
                 </div>
                 <Router basename={process.env.PUBLIC_URL}>
                     <div className="App-intro">
-                        <Route path="/form/:documentId" component={FormComponent}/>
-                        <Route path="/table/:documentId" component={DocumentsTableComponent}/>
-                        <Route exact path="/wiz/:documentId" component={DocumentWizardComponent}/>
-                        <Route exact path="/wiz/:documentId/node/:nodeId" component={DocumentWizardNodeComponent}/>
-                        <Route path="/pdf/:documentId/node/:nodeId" component={UnrolledListComponent}/>
-                        <Route exact path="/accor/:documentId" component={AccordionRedirectorComponent}/>
-                        <Route path="/accor/:documentId/node/:nodeId" component={AccordionListComponent}/>
+                        <Route path="/form/:referralId" component={FormComponent}/>
+                        <Route path="/table/:referralId" component={DocumentsTableComponent}/>
+                        <Route exact path="/wiz/:referralId" component={DocumentWizardComponent}/>
+                        <Route exact path="/wiz/:referralId/node/:nodeId" component={DocumentWizardNodeComponent}/>
+                        <Route path="/pdf/:referralId/node/:nodeId" component={UnrolledListComponent}/>
+                        <Route exact path="/accor/:referralId" component={AccordionRedirectorComponent}/>
+                        <Route path="/accor/:referralId/node/:nodeId" component={AccordionListComponent}/>
                         <Route path="/ref/:ref" component={ReferenceCodeComponent}/>
                     </div>
                 </Router>

@@ -1,22 +1,19 @@
-import * as React from "react";
+import * as React from 'react';
 
 // import { PdfViewerComponent } from './PdfViewerComponent';
+
 import { CheckboxComponent } from '../common/CheckboxComponent';
 import { ErrorComponent } from '../common/ErrorComponent';
-import { ApprovalComponent } from '../common/ApprovalComponent'
+import { ApprovalComponent } from '../common/ApprovalComponent';
 
-// import * as rpn from 'request-promise-native';
+import { DocumentService } from '../../services/DocumentRetriever';
 
-import { match } from 'react-router-dom';
 // Types
-interface Document {
-    link: string;
-    name: string;
-    detail: string;
-    approved: boolean
-}
+import { match } from 'react-router-dom';
+import Document from '../../models/Document';
+
 interface NavParam {
-    documentId: number;
+    referralId: string;
     nodeId: number;
 }
 interface UnrolledListProps {
@@ -38,67 +35,47 @@ export class UnrolledListComponent extends React.Component<UnrolledListProps, Un
         this.sendApproval = this.sendApproval.bind(this);
     }
 
-    sendApproval () {
-        console.log('approval comp post');
-        // rpn({
-        //     uri: `https://fb000pc242.fibabanka.local:9444/InstantWeb/rs/docs?t=${this.props.match.params.documentId}`,
-        //     json: true,
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(this.state.documents)
-        // }).then((response) => {
-        //     console.log('approval response', response);
-        //     this.props.history.push(`/reference/${response}`);
-        // });
-        setTimeout(() => {
-            const response = 123456;
-            console.log('approval response', response);
-            this.props.history.push(`/reference/${response}`);
-        }, 250 );
+    componentWillMount () {
+        DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
+            (documents: Document[]) => {
+                this.setState({ isValid: true, documents: documents });
+            }
+        );
     }
 
-    mockDocuments: Document[] = [
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili açıklama.", "name":"Başvuru Formu", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.Döküman ile ilgili uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun uzuun açıklama.", "name":"Başvuru Formu", "link": "https://www.google.com.tr/?gfe_rd=cr&dcr=0&ei=iiT8WcukCrOt8wfHw5qQAQ"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"},
-        {"approved": false, "detail": "Döküman ile ilgili açıklama.", "name": "Dokkuman", "link": "twelweth"}];
-
-    componentWillMount () {
-        setTimeout(() => {
-            if (this.mockDocuments) {
-                this.setState({ isValid: true, documents: this.mockDocuments });
+    sendApproval () {
+        DocumentService.postApproval(this.props.match.params.referralId, this.state.documents).subscribe(
+            (referenceCode: number) => {
+                console.log('approval response', referenceCode);
+                this.props.history.push(`/reference/${referenceCode}`);
             }
-        }, 250);
+        );
     }
 
     onDocumentReadChecked (key: number) {
         let _documents = this.state.documents;
-        if(_documents[key])
-        {
+        if (_documents[key]) {
             _documents[key].approved = !_documents[key].approved;
         }
-        this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value["approved"])) });
+        this.setState({
+            documents: _documents,
+            allChecked: !_documents.some((value, index, array) => (!value.approved))
+        });
     }
 
     public render (): JSX.Element {
         const pdfViewItems = this.state.documents.map((item, index) => {
             return (
-                <div className="ui-g">
+                <div className="ui-g" key={index}>
                     <div className="ui-g-12" >
                         {/*<PdfViewerComponent documentIndex={index} document={item} lazy={true}/>*/}
                     </div>
                     <div className="ui-g-12" >
-                        <CheckboxComponent document={item} documentIndex={index} onDocumentReadChecked={this.onDocumentReadChecked}/>
+                        <CheckboxComponent
+                            document={item}
+                            documentIndex={index}
+                            onDocumentReadChecked={this.onDocumentReadChecked}
+                        />
                     </div>
                 </div>
             );

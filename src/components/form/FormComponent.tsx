@@ -11,10 +11,10 @@ import * as rpn from 'request-promise-native';
 // Types
 import { match } from 'react-router-dom'
 interface NavParam {
-    documentId: number
-};
+    documentId: number;
+}
 interface FormProps{
-    match: match<NavParam>
+    match: match<NavParam>;
 }
 interface FormState{
     checked: boolean,
@@ -22,7 +22,7 @@ interface FormState{
     phone: string,
     motherMaidenName: string,
     isValid: boolean
-};
+}
 // End of Types
 
 export class FormComponent extends React.Component<FormProps, FormState>{
@@ -114,10 +114,10 @@ export class FormComponent extends React.Component<FormProps, FormState>{
                                 </div>
                             </div>
                             <div className="ui-md-12">
-                                <Checkbox label="I accept the terms and conditions" onChange={this.onLicenseAgreed} checked={this.state.checked}></Checkbox>
+                                <Checkbox label="I accept the terms and conditions" onChange={this.onLicenseAgreed} checked={this.state.checked}/>
                             </div>
                             <div className="ui-md-12">
-                                <Button label="Gönder" type="submit"></Button>
+                                <Button label="Gönder" type="submit"/>
                             </div>
                         </div>
                     </div>

@@ -1,34 +1,34 @@
-import * as React from "react";
+import * as React from 'react';
 
-import {Checkbox} from 'primereact/components/checkbox/Checkbox';
-import {Button} from 'primereact/components/button/Button';
-import {InputText} from 'primereact/components/inputtext/InputText';
+import { Checkbox } from 'primereact/components/checkbox/Checkbox';
+import { Button } from 'primereact/components/button/Button';
+import { InputText } from 'primereact/components/inputtext/InputText';
 
-import {ErrorComponent} from "../common/ErrorComponent";
+import { ErrorComponent } from '../common/ErrorComponent';
 
 import * as rpn from 'request-promise-native';
 
 // Types
-import { match } from 'react-router-dom'
+import { match } from 'react-router-dom';
 interface NavParam {
-    documentId: number;
+    referralId: number;
 }
-interface FormProps{
+interface FormProps {
     match: match<NavParam>;
 }
-interface FormState{
-    checked: boolean,
-    citizenId: number,
-    phone: string,
-    motherMaidenName: string,
-    isValid: boolean
+interface FormState {
+    checked: boolean;
+    citizenId: number;
+    phone: string;
+    motherMaidenName: string;
+    isValid: boolean;
 }
 // End of Types
 
-export class FormComponent extends React.Component<FormProps, FormState>{
+export class FormComponent extends React.Component<FormProps, FormState> {
     constructor(props: FormProps) {
         super(props);
-        this.state = {checked: false, citizenId: 0, phone: "", motherMaidenName: "", isValid: false};
+        this.state = {checked: false, citizenId: 0, phone: '', motherMaidenName: '', isValid: false};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -114,7 +114,11 @@ export class FormComponent extends React.Component<FormProps, FormState>{
                                 </div>
                             </div>
                             <div className="ui-md-12">
-                                <Checkbox label="I accept the terms and conditions" onChange={this.onLicenseAgreed} checked={this.state.checked}/>
+                                <Checkbox
+                                    label="I accept the terms and conditions"
+                                    onChange={this.onLicenseAgreed}
+                                    checked={this.state.checked}
+                                />
                             </div>
                             <div className="ui-md-12">
                                 <Button label="Gönder" type="submit"/>

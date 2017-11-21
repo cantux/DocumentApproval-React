@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { ErrorComponent } from "../common/ErrorComponent";
+import { ErrorComponent } from '../common/ErrorComponent';
 
-import { DocumentService } from "../../services/DocumentRetriever";
+import { DocumentService } from '../../services/DocumentRetriever';
 
 // Types
 import Document from '../../models/Document';
@@ -20,7 +20,7 @@ interface DocumentWizardState {
 }
 // End of Types
 
-export class DocumentWizardComponent extends React.Component<DocumentWizardProps, DocumentWizardState>{
+export class DocumentWizardComponent extends React.Component<DocumentWizardProps, DocumentWizardState> {
     constructor(props: DocumentWizardProps) {
         super(props);
         this.state = {checked: false, isValid: false};
@@ -30,7 +30,7 @@ export class DocumentWizardComponent extends React.Component<DocumentWizardProps
         DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
             (documents: Document[]) => {
                 this.setState({ isValid: true });
-                const route = "/wiz/" + this.props.match.params.referralId + "/node/" + 0;
+                const route = '/wiz/' + this.props.match.params.referralId + '/node/' + 0;
                 this.props.history.push(route);
             });
     }

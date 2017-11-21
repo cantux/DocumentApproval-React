@@ -18,7 +18,7 @@ export class AccordionRedirectorComponent extends React.Component<AccordionRedir
     }
 
     componentDidMount () {
-        const route = "/accor/" + this.props.match.params.referralId + "/node/" + 0;
+        const route = '/accor/' + this.props.match.params.referralId + '/node/' + 0;
         this.props.history.push(route);
     }
 

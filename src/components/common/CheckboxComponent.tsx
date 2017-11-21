@@ -1,15 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
 import { Checkbox } from 'primereact/components/checkbox/Checkbox';
 import { Panel } from 'primereact/components/panel/Panel';
 
 // Types
-interface Document {
-    link: string;
-    name: string;
-    detail: string;
-    approved: boolean
-}
+import Document from '../../models/Document';
 interface CheckboxProps {
     documentIndex: number;
     document: Document;
@@ -18,18 +13,17 @@ interface CheckboxProps {
 interface CheckboxState {}
 // End of Types
 
-export class CheckboxComponent extends React.Component<CheckboxProps, CheckboxState>{
+export class CheckboxComponent extends React.Component<CheckboxProps, CheckboxState> {
     constructor(props: CheckboxProps) {
         super(props);
-        this.onDocumentReadChecked = this.onDocumentReadChecked.bind(this);
     }
 
-    onDocumentReadChecked () {
+    onDocumentReadChecked = () => {
         this.props.onDocumentReadChecked(this.props.documentIndex);
     }
 
     public render (): JSX.Element {
-        const wordWrap = {"wordWrap": "break-word"};
+        const wordWrap = {'wordWrap': 'break-word'};
         return (
             <Panel>
                 <div style={wordWrap}>

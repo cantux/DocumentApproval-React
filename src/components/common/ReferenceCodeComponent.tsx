@@ -8,7 +8,7 @@ import { Panel } from 'primereact/components/panel/Panel';
 
 import { match } from 'react-router-dom';
 interface NavParam {
-    ref: number;
+    referenceCode: number;
 }
 interface ReferenceCodeProps {
     match: match<NavParam>;
@@ -22,7 +22,7 @@ export class ReferenceCodeComponent extends React.Component<ReferenceCodeProps, 
 
     public render (): JSX.Element {
         const refCodeStyle = {
-            color: "#FF0000"
+            color: '#FF0000'
         } as React.CSSProperties;
 
         return (
@@ -35,7 +35,7 @@ export class ReferenceCodeComponent extends React.Component<ReferenceCodeProps, 
                     </div>
                     <div className="ui-g-12" style={refCodeStyle}>
                         <h3>
-                            {this.props.match.params.ref}
+                            {this.props.match.params.referenceCode}
                         </h3>
                     </div>
 

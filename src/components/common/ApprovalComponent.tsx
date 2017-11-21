@@ -16,11 +16,10 @@ interface ApprovalStates {}
 export class ApprovalComponent extends React.Component<ApprovalProps, ApprovalStates> {
     constructor(props: ApprovalProps) {
         super(props);
-        this.state = {allChecked: false}
-        this.sendApproval = this.sendApproval.bind(this);
+        this.state = {allChecked: false};
     }
 
-    sendApproval () {
+    sendApproval = () => {
         console.log('approval comp post');
         this.props.approvalCb();
     }
@@ -32,9 +31,9 @@ export class ApprovalComponent extends React.Component<ApprovalProps, ApprovalSt
                     <div className="ui-g-12">
                         <Button
                             onClick={this.sendApproval}
-                            label={"Onayı Gönder"}
-                            icon={"fa-arrow-right"}
-                            iconPos={"right"}
+                            label={'Onayı Gönder'}
+                            icon={'fa-arrow-right'}
+                            iconPos={'right'}
                             disabled={!this.props.allChecked}
                         />
                     </div>

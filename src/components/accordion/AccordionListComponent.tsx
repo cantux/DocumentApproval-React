@@ -10,10 +10,9 @@ import { DocumentService } from '../../services/DocumentRetriever';
 
 import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion';
 
+// Types
 import Document from '../../models/Document';
 import { match } from 'react-router-dom';
-
-// Types
 interface NavParam {
     referralId: string;
     nodeId: number;
@@ -45,32 +44,38 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
             documents: [],
             lazy: false,
             activeAccordion: this.props.match.params.nodeId};
-        this.sendApproval = this.sendApproval.bind(this);
-        this.onDocumentReadChecked = this.onDocumentReadChecked.bind(this);
-        this.onAccordionTabClose = this.onAccordionTabClose.bind(this);
     }
 
     componentWillMount () {
-        DocumentService.getDocuments(this.props.match.params.referralId).subscribe((
-            documents: Document[]) => {
+        DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
+            (documents: Document[]) => {
                 if (this.props.match.params.referralId === 'noDoc') {
-                    this.setState({ error: true, errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'});
+                    this.setState({
+                        error: true,
+                        errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'
+                    });
                 } else {
                     console.log('get documents response', documents);
                     this.setState({ isValid: true, documents: documents });
                 }
             },(error) => {
                 console.log(error);
-                this.setState({ error: true, errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'});
+                this.setState({
+                    error: true,
+                    errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'
+                });
             });
     }
 
-    sendApproval () {
+    sendApproval = () => {
         console.log('approval comp post');
         DocumentService.postApproval(this.props.match.params.referralId, this.state.documents).subscribe(
             (referenceCode) => {
                 if (this.props.match.params.referralId === 'noRef') {
-                    this.setState({ error: true, errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'});
+                    this.setState({
+                        error: true,
+                        errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'
+                    });
                 } else {
                     console.log('approval response', referenceCode);
                     this.props.history.push(`/ref/${referenceCode}`);
@@ -79,7 +84,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         );
     }
 
-    onDocumentReadChecked (key: number) {
+    onDocumentReadChecked = (key: number) => {
         let _documents = this.state.documents;
         if (_documents[key]) {
             _documents[key].approved = !_documents[key].approved;
@@ -91,7 +96,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value.approved)), activeAccordion: key + 1 });
     }
 
-    onAccordionTabClose (e: any) {
+    onAccordionTabClose = (e: any) => {
         // console.log('clientHeight: ', e.originalEvent.target.clientHeight);
 
         let appHeaderHeight = (((document || {}).getElementById('app-header') || {}) as Element).clientHeight;

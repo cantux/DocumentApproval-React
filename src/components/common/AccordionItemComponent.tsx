@@ -7,12 +7,8 @@ import { CheckboxComponent } from "./CheckboxComponent";
 
 import { PdfViewerComponent } from './PdfViewerComponent';
 
-interface Document {
-    link: string;
-    name: string;
-    detail: string;
-    approved: boolean;
-}
+// Types
+import Document from '../../models/Document';
 interface AccordionItemProps {
     documentIndex: number;
     document: Document;
@@ -22,15 +18,15 @@ interface AccordionItemProps {
 interface AccordionItemStates {
     documentRead: boolean;
 }
+// End of Types
 
 export class AccordionItemComponent extends React.Component<AccordionItemProps, AccordionItemStates> {
     constructor(props: AccordionItemProps) {
         super(props);
         this.state = { documentRead: props.document.approved || false };
-        this.onScrollToEndEvent = this.onScrollToEndEvent.bind(this);
     }
 
-    onScrollToEndEvent () {
+    onScrollToEndEvent = () => {
         this.setState({documentRead: true});
     }
 

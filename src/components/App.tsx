@@ -56,7 +56,7 @@ class App extends React.Component<AppProps, AppState> {
                         <Route path="/pdf/:referralId/node/:nodeId" component={UnrolledListComponent}/>
                         <Route exact path="/accor/:referralId" component={AccordionRedirectorComponent}/>
                         <Route path="/accor/:referralId/node/:nodeId" component={AccordionListComponent}/>
-                        <Route path="/ref/:referenceCode" component={ReferenceCodeComponent}/>
+                        <Route path="/referenceCode" component={ReferenceCodeComponent}/>
                     </div>
                 </Router>
             </div>

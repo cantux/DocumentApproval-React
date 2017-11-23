@@ -35,6 +35,7 @@ export class DocumentService {
         return rpn({
             uri: endPoint,
             json: true,
+            jar: true,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,6 +59,7 @@ export class DocumentService {
         return rpn({
             uri: endPoint,
             json: true,
+            jar: true,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

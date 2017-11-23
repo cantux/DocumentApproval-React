@@ -48,7 +48,8 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
 
     componentWillMount () {
         DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
-            (documents: Document[]) => {
+            (documents: Document[], ...args: any[]) => {
+                console.log('arguments: ', ...args)
                 if (this.props.match.params.referralId === 'noDoc') {
                     this.setState({
                         error: true,
@@ -74,12 +75,19 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                 if (this.props.match.params.referralId === 'noRef') {
                     this.setState({
                         error: true,
-                        errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'
+                        errorMessage: 'Referans kodu oluşturulma sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz.'
                     });
                 } else {
                     console.log('approval response', referenceCode);
-                    this.props.history.push(`/ref/${referenceCode}`);
+                    this.props.history.push({pathname: `/referenceCode`, state: {referenceCode: referenceCode}});
                 }
+            },
+            (error) => {
+                console.log(error);
+                this.setState({
+                    error: true,
+                    errorMessage: 'Referans kodu oluşturulma sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz.'
+                });
             }
         );
     }

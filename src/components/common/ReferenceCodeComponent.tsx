@@ -6,18 +6,16 @@ import * as React from 'react';
 
 import { Panel } from 'primereact/components/panel/Panel';
 
-import { match } from 'react-router-dom';
-interface NavParam {
-    referenceCode: number;
-}
+import { Location } from 'history';
 interface ReferenceCodeProps {
-    match: match<NavParam>;
+    location: Location;
 }
 interface ReferenceCodeStates {}
 
 export class ReferenceCodeComponent extends React.Component<ReferenceCodeProps, ReferenceCodeStates> {
     constructor(props: ReferenceCodeProps) {
         super(props);
+        console.log(props);
     }
 
     public render (): JSX.Element {
@@ -35,7 +33,7 @@ export class ReferenceCodeComponent extends React.Component<ReferenceCodeProps, 
                     </div>
                     <div className="ui-g-12" style={refCodeStyle}>
                         <h3>
-                            {this.props.match.params.referenceCode}
+                            {this.props.location.state.referenceCode}
                         </h3>
                     </div>
 

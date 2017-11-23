@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 
-import { CheckboxComponent } from "./CheckboxComponent";
+import { CheckboxComponent } from './CheckboxComponent';
 
 import { PdfViewerComponent } from './PdfViewerComponent';
 
@@ -38,7 +38,8 @@ export class AccordionItemComponent extends React.Component<AccordionItemProps, 
                         documentIndex={this.props.documentIndex}
                         document={this.props.document}
                         lazy={this.props.activeAccordion === this.props.documentIndex}
-                        scrollToEndEventCb={this.onScrollToEndEvent}/>
+                        scrollToEndEventCb={this.onScrollToEndEvent}
+                    />
                 </div>
                 <div className="ui-g-12" >
                     {
@@ -46,7 +47,8 @@ export class AccordionItemComponent extends React.Component<AccordionItemProps, 
                         <CheckboxComponent
                             document={this.props.document}
                             documentIndex={this.props.documentIndex}
-                            onDocumentReadChecked={this.props.onDocumentReadCheckedCb}/>
+                            onDocumentReadChecked={this.props.onDocumentReadCheckedCb}
+                        />
                         : 'Devam etmeden önce tüm dokumanı okuyunuz.'
                     }
                 </div>

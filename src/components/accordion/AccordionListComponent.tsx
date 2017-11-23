@@ -93,7 +93,11 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         let appHeaderHeight = (((document || {}).getElementById('app-header') || {}) as Element).clientHeight;
         window.scrollTo(0, appHeaderHeight + (14 * (key + 1)) / 2);
 
-        this.setState({documents: _documents, allChecked: !_documents.some((value, index, array) => (!value.approved)), activeAccordion: key + 1 });
+        this.setState({
+            documents: _documents,
+            allChecked: !_documents.some((value, index, array) => (!value.approved)),
+            activeAccordion: key + 1
+        });
     }
 
     onAccordionTabClose = (e: any) => {
@@ -113,13 +117,12 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                     key={index}
                     header={`${item.name}${item.approved ? '' : ' - Okunmamış'}`}
                 >
-
                     <AccordionItemComponent
                         documentIndex={index}
                         document={item}
                         onDocumentReadCheckedCb={this.onDocumentReadChecked}
-                        activeAccordion={this.state.activeAccordion}/>
-
+                        activeAccordion={this.state.activeAccordion}
+                    />
                 </AccordionTab>);
         });
 
@@ -132,10 +135,9 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                         <div className="ui-g-12">
                             <Accordion
                                 onTabClose={this.onAccordionTabClose}
-                                activeIndex={this.state.activeAccordion}>
-
+                                activeIndex={this.state.activeAccordion}
+                            >
                                 {accordionItems}
-
                             </Accordion>
                         </div>
                         <div className="ui-g-12">

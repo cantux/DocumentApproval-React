@@ -25,29 +25,31 @@ export class ErrorBoundary extends React.Component<ErrorBoundryProps, ErrorBound
             errorInfo: errorInfo
         });
 
-        ErrorService.postError(new GenericError('React error', '', JSON.stringify(errorInfo)));
+        ErrorService.postError(new GenericError(error.message, '', JSON.stringify(errorInfo)));
     }
 
     render () {
-        console.log('error boundry render: ', this.state.error);
         if (this.state.error) {
-            console.log('error boundry error truthy');
             return (<div>
-                Merhaba sistemde bir hata olustu, lutfen musteri temsilcisinden yardim isteyiniz.
+                Sistemde bir hata olustu, lutfen musteri temsilcisinden yardim isteyiniz.
 
                 <div className="ui-g">
                     <div className="ui-g-12">
-                        Hata:
-                        {this.state.error}
+                        Hata Ismi:
+                        {this.state.error.name}
+                    </div>
+                    <div className="ui-g-12">
+                        Hata Mesaji:
+                        {this.state.error.message}
                     </div>
                     <div className="ui-g-12">
                         Hata ayrintisi:
-                        {this.state.error}
+                        {this.state.error.stack}
                     </div>
+
                 </div>
             </div>);
         }
-        console.log('error boundry error false');
         return this.props.children;
 
     }

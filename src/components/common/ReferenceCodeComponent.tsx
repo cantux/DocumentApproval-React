@@ -15,7 +15,6 @@ interface ReferenceCodeStates {}
 export class ReferenceCodeComponent extends React.Component<ReferenceCodeProps, ReferenceCodeStates> {
     constructor(props: ReferenceCodeProps) {
         super(props);
-        console.log(props);
     }
 
     public render (): JSX.Element {

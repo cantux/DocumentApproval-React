@@ -92,7 +92,6 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                 }
             },
             (error) => {
-                console.log(error);
                 this.setState({
                     error: true,
                     errorMessage: errorMessage

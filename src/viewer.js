@@ -1,4 +1,5 @@
 var pdfjsLib = require('pdfjs-dist');
+import { ErrorService, GenericError } from "./services/ErrorTransmitter";
 
 // Setting worker path to worker bundle.
 pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.min.js';
@@ -44,19 +45,10 @@ export function load(viewId, pdfPath, zoomScale) {
                 });
                 return renderTask.promise;
             }).catch(function (reason) {
-                // TODO
-                try{
-                    console.log('viewer.js getPage.catch raw reason: ', reason);
-                    console.log('viewer.js getPage.catch response: ', reason.response);
-                }
-                catch (err) {
-                    console.log('catch of a catch, we are in too deep: ', err);
-                }
-
+              ErrorService.postError(new GenericError('pdf get page promise catch!!!', 0, JSON.stringify(reason)));
             });
         }
     }).catch(function (reason) {
-        // TODO
-        console.error('viewer.js error: ' + reason);
+      ErrorService.postError(new GenericError('loading task promise catch!!!', 0, JSON.stringify(reason)));
     });
 }

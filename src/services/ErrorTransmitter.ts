@@ -13,17 +13,17 @@ class ErrorService {
 
     public static postError (error: GenericError) {
         return ErrorService.isMockBackend ?
-            console.log('mock error service: ', error)
+            console.log('mock error service: ', error.dump())
             :
             fromPromise(
                 ErrorService.postErrorPromise(
                     `${ErrorService.errorEndPoint}`,
-                    error
+                    error.dump()
                 )
             );
     }
 
-    private static postErrorPromise (endPoint: string, error: GenericError): Promise<number> {
+    private static postErrorPromise (endPoint: string, error: any): Promise<number> {
         return rpn({
             uri: endPoint,
             json: true,

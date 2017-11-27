@@ -1,9 +1,9 @@
 import * as React from "react";
 
-let viewer = require('./../../viewer.js');
+let viewer = require('./viewer.js');
 
 // Types
-import Document from '../../models/Document';
+import Document from '../../../models/Document';
 interface PdfViewerProps {
     document: Document;
     documentIndex: number;

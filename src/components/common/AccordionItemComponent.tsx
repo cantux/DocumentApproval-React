@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { CheckboxComponent } from './CheckboxComponent';
 
-import { PdfViewerComponent } from './PdfViewerComponent';
+import { PdfViewerComponent } from './pdf/PdfViewerComponent';
 
 // Types
 import Document from '../../models/Document';

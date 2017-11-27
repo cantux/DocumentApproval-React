@@ -55,15 +55,15 @@ class App extends React.Component<AppProps, AppState> {
                     <Router basename={process.env.PUBLIC_URL}>
                         <div className="App-intro">
                             <Switch>
-                            <Route path="/form/:referralId" component={FormComponent}/>
-                            <Route path="/table/:referralId" component={DocumentsTableComponent}/>
-                            <Route exact path="/wiz/:referralId" component={DocumentWizardComponent}/>
-                            <Route exact path="/wiz/:referralId/node/:nodeId" component={DocumentWizardNodeComponent}/>
-                            <Route path="/pdf/:referralId/node/:nodeId" component={UnrolledListComponent}/>
-                            <Route exact path="/accor/:referralId" component={AccordionRedirectorComponent}/>
-                            <Route path="/accor/:referralId/node/:nodeId" component={AccordionListComponent}/>
-                            <Route path="/referenceCode" component={ReferenceCodeComponent}/>
-                            <Route render={() => (<ErrorComponent message="wrong route"/>)}/>
+                              <Route path="/form/:referralId" component={FormComponent}/>
+                              <Route path="/table/:referralId" component={DocumentsTableComponent}/>
+                              <Route exact path="/wiz/:referralId" component={DocumentWizardComponent}/>
+                              <Route exact path="/wiz/:referralId/node/:nodeId" component={DocumentWizardNodeComponent}/>
+                              <Route path="/pdf/:referralId/node/:nodeId" component={UnrolledListComponent}/>
+                              <Route exact path="/accor/:referralId" component={AccordionRedirectorComponent}/>
+                              <Route path="/accor/:referralId/node/:nodeId" component={AccordionListComponent}/>
+                              <Route path="/referenceCode" component={ReferenceCodeComponent}/>
+                              <Route render={() => (<ErrorComponent message="Hatalı Link!!"/>)}/>
                             </Switch>
                         </div>
                     </Router>

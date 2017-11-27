@@ -1,5 +1,5 @@
 var pdfjsLib = require('pdfjs-dist');
-import { ErrorService, GenericError } from "./services/ErrorTransmitter";
+import { ErrorService, GenericError } from "../../../services/ErrorTransmitter";
 
 // Setting worker path to worker bundle.
 pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.min.js';

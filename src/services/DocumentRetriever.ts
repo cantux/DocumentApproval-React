@@ -45,7 +45,7 @@ export class DocumentService {
 
     public static postApproval (referralId: string, documents: Document[]) {
         return DocumentService.isMockBackend ?
-            of(123456).delay(3000)
+            of(Math.floor(100000 + Math.random() * 900000)).delay(3000)
             :
             fromPromise(
                 DocumentService.postApprovalPromise(

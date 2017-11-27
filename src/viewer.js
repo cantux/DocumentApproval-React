@@ -1,7 +1,7 @@
 var pdfjsLib = require('pdfjs-dist');
 
 // Setting worker path to worker bundle.
-pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdfjs-dist/build/pdf.worker.js';
+pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.min.js';
 
 // It is also possible to disable workers via `PDFJS.disableWorker = true`,
 // however that might degrade the UI performance in web browsers.

@@ -60,7 +60,11 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                     ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, 'mock'));
                 } else {
                     console.log('get documents response', documents);
-                    this.setState({ isValid: true, documents: documents });
+                    this.setState({
+                      isValid: true,
+                      documents: documents,
+                      allChecked: !documents.some((value, index, array) => (!value.approved))
+                    });
                 }
             },(error) => {
                 this.setState({
@@ -69,7 +73,6 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                 });
                 ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
             });
-
     }
 
     sendApproval = () => {
@@ -97,7 +100,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                 ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
             }
         );
-    }
+    };
 
     onDocumentReadChecked = (key: number) => {
         let _documents = this.state.documents;
@@ -113,7 +116,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
             allChecked: !_documents.some((value, index, array) => (!value.approved)),
             activeAccordion: key + 1
         });
-    }
+    };
 
     onAccordionTabClose = (e: any) => {
         // console.log('clientHeight: ', e.originalEvent.target.clientHeight);
@@ -123,7 +126,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         window.scrollTo(0, appHeaderHeight + (e.originalEvent.target.clientHeight * e.index) / 2);
 
         this.setState({activeAccordion: e.index});
-    }
+    };
 
     public render (): JSX.Element {
         const accordionItems = this.state.documents.map((item, index) => {

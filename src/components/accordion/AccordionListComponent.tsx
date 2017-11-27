@@ -10,6 +10,8 @@ import { DocumentService } from '../../services/DocumentRetriever';
 
 import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion';
 
+import { GenericError, ErrorService } from '../../services/ErrorTransmitter';
+
 // Types
 import Document from '../../models/Document';
 import { match } from 'react-router-dom';
@@ -47,36 +49,40 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
     }
 
     componentWillMount () {
+        var errorMessage = 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.';
         DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
-            (documents: Document[], ...args: any[]) => {
-                console.log('arguments: ', ...args)
+            (documents: Document[]) => {
                 if (this.props.match.params.referralId === 'noDoc') {
                     this.setState({
                         error: true,
-                        errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'
+                        errorMessage: errorMessage
                     });
+                    ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, 'mock'));
                 } else {
                     console.log('get documents response', documents);
                     this.setState({ isValid: true, documents: documents });
                 }
             },(error) => {
-                console.log(error);
                 this.setState({
                     error: true,
-                    errorMessage: 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.'
+                    errorMessage: errorMessage
                 });
+                ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
             });
+
     }
 
     sendApproval = () => {
         console.log('approval comp post');
+        var errorMessage = 'Referans kodu oluşturulma sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz.';
         DocumentService.postApproval(this.props.match.params.referralId, this.state.documents).subscribe(
             (referenceCode) => {
                 if (this.props.match.params.referralId === 'noRef') {
                     this.setState({
                         error: true,
-                        errorMessage: 'Referans kodu oluşturulma sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz.'
+                        errorMessage: errorMessage
                     });
+                    ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, 'mock'));
                 } else {
                     console.log('approval response', referenceCode);
                     this.props.history.push({pathname: `/referenceCode`, state: {referenceCode: referenceCode}});
@@ -86,8 +92,9 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                 console.log(error);
                 this.setState({
                     error: true,
-                    errorMessage: 'Referans kodu oluşturulma sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz.'
+                    errorMessage: errorMessage
                 });
+                ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
             }
         );
     }

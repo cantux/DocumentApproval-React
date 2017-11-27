@@ -1,8 +1,3 @@
-// Any copyright is dedicated to the Public Domain.
-// http://creativecommons.org/licenses/publicdomain/
-
-// Hello world example for webpack.
-
 var pdfjsLib = require('pdfjs-dist');
 
 // Setting worker path to worker bundle.
@@ -49,6 +44,7 @@ export function load(viewId, pdfPath, zoomScale) {
                 });
                 return renderTask.promise;
             }).catch(function (reason) {
+                // TODO
                 try{
                     console.log('viewer.js getPage.catch raw reason: ', reason);
                     console.log('viewer.js getPage.catch response: ', reason.response);
@@ -60,6 +56,7 @@ export function load(viewId, pdfPath, zoomScale) {
             });
         }
     }).catch(function (reason) {
+        // TODO
         console.error('viewer.js error: ' + reason);
     });
 }

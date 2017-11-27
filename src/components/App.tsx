@@ -1,5 +1,5 @@
-
 import * as React from 'react';
+
 import './App.css';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -12,12 +12,15 @@ import { UnrolledListComponent } from './unrolled/UnrolledListComponent';
 import { AccordionRedirectorComponent } from './accordion/AccordionRedirectorComponent';
 import { AccordionListComponent } from './accordion/AccordionListComponent';
 import { ReferenceCodeComponent } from './common/ReferenceCodeComponent';
+import { ErrorBoundary } from "./common/ErrorBoundry";
+import { ErrorComponent } from "./common/ErrorComponent";
 
 const logo = require('../assets/images/fibabanka_logo.png');
 
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/omega/theme.css';
 import 'font-awesome/css/font-awesome.css';
+import {Switch} from "react-router";
 
 interface AppProps {}
 interface AppState {}
@@ -36,6 +39,7 @@ class App extends React.Component<AppProps, AppState> {
         } as React.CSSProperties;
         // noinspection TsLint
         return (
+
             <div className="App">
                 <div className="App-header" id="app-header">
                     <div className="ui-g">
@@ -47,18 +51,23 @@ class App extends React.Component<AppProps, AppState> {
                         </div>
                     </div>
                 </div>
-                <Router basename={process.env.PUBLIC_URL}>
-                    <div className="App-intro">
-                        <Route path="/form/:referralId" component={FormComponent}/>
-                        <Route path="/table/:referralId" component={DocumentsTableComponent}/>
-                        <Route exact path="/wiz/:referralId" component={DocumentWizardComponent}/>
-                        <Route exact path="/wiz/:referralId/node/:nodeId" component={DocumentWizardNodeComponent}/>
-                        <Route path="/pdf/:referralId/node/:nodeId" component={UnrolledListComponent}/>
-                        <Route exact path="/accor/:referralId" component={AccordionRedirectorComponent}/>
-                        <Route path="/accor/:referralId/node/:nodeId" component={AccordionListComponent}/>
-                        <Route path="/referenceCode" component={ReferenceCodeComponent}/>
-                    </div>
-                </Router>
+                <ErrorBoundary>
+                    <Router basename={process.env.PUBLIC_URL}>
+                        <div className="App-intro">
+                            <Switch>
+                            <Route path="/form/:referralId" component={FormComponent}/>
+                            <Route path="/table/:referralId" component={DocumentsTableComponent}/>
+                            <Route exact path="/wiz/:referralId" component={DocumentWizardComponent}/>
+                            <Route exact path="/wiz/:referralId/node/:nodeId" component={DocumentWizardNodeComponent}/>
+                            <Route path="/pdf/:referralId/node/:nodeId" component={UnrolledListComponent}/>
+                            <Route exact path="/accor/:referralId" component={AccordionRedirectorComponent}/>
+                            <Route path="/accor/:referralId/node/:nodeId" component={AccordionListComponent}/>
+                            <Route path="/referenceCode" component={ReferenceCodeComponent}/>
+                            <Route render={() => (<ErrorComponent message="wrong route"/>)}/>
+                            </Switch>
+                        </div>
+                    </Router>
+                </ErrorBoundary>
             </div>
         );
     }

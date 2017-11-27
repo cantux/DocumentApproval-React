@@ -3,12 +3,7 @@ import * as React from "react";
 let viewer = require('./../../viewer.js');
 
 // Types
-interface Document {
-    link: string;
-    name: string;
-    detail: string;
-    approved: boolean
-}
+import Document from '../../models/Document';
 interface PdfViewerProps {
     document: Document;
     documentIndex: number;

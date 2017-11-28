@@ -7,7 +7,7 @@ import GenericError from '../models/Error';
 class ErrorService {
 
     public static errorEndPoint: string =
-        `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=`;
+        `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs/log`;
 
     private static isMockBackend: boolean = process.env.USE_MOCK === 'true';
 
@@ -26,11 +26,11 @@ class ErrorService {
     private static postErrorPromise (endPoint: string, error: any): Promise<number> {
         return rpn({
             uri: endPoint,
-            json: true,
+            json: false,
             jar: true,
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json; charset=utf-8'
             },
             body: JSON.stringify(error)
         });

@@ -45,10 +45,16 @@ export function load(viewId, pdfPath, zoomScale) {
                 });
                 return renderTask.promise;
             }).catch(function (reason) {
+              var errorDiv = document.createElement('div');
+              errorDiv.innerText = "Pdf oluşturulması sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz";
+              container.appendChild(errorDiv);
               ErrorService.postError(new GenericError('pdf get page promise catch!!!', 0, JSON.stringify(reason)));
             });
         }
     }).catch(function (reason) {
+      var errorDiv = document.createElement('div');
+      errorDiv.innerText = "Pdf oluşturulması sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz";
+      container.appendChild(errorDiv);
       ErrorService.postError(new GenericError('loading task promise catch!!!', 0, JSON.stringify(reason)));
     });
 }

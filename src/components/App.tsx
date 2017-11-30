@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import './App.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { FormComponent } from './form/FormComponent';
 import { DocumentsTableComponent } from './table/DocumentsTableComponent';
@@ -20,7 +20,6 @@ const logo = require('../assets/images/fibabanka_logo.png');
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/omega/theme.css';
 import 'font-awesome/css/font-awesome.css';
-import {Switch} from "react-router";
 
 interface AppProps {}
 interface AppState {}

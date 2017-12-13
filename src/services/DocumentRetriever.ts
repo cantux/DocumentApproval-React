@@ -58,11 +58,10 @@ export class DocumentService {
     private static postApprovalPromise (endPoint: string, documents: Document[]): Promise<number> {
         return rpn({
             uri: endPoint,
-            json: true,
             jar: true,
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json;  charset=utf-8'
             },
             body: JSON.stringify(documents)
         });

@@ -32,12 +32,14 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
     componentWillUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
         // load the document if it hasn't been loaded before
+      // confus
         if(!this.state.loaded && !nextState.loaded){
             this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, 1);
         }
     }
 
     componentDidMount () {
+        // confus
         if(this.props.lazy){
             this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, 1);
         }
@@ -45,7 +47,10 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
     loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any, zoomScale: number) {
         viewer.load(this.props.documentIndex, link, zoomScale);
+
+        // confus
         this.setState({loaded: true});
+
         if (document && !this.scrollToEndEvent){
             let pdfContainer = document.getElementById(`pdf-container${this.props.documentIndex}`);
             if (pdfContainer){

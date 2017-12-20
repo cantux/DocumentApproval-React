@@ -10,7 +10,7 @@ import Document from '../models/Document';
 export class DocumentService {
 
     public static documentsEndPoint: string =
-        `${window.location.protocol}//${window.location.host}/InstantWeb/rs/docs?t=`;
+        `${window.location.protocol}//${window.location.host}${process.env.ENDPOINT}`;
 
     private static mockDocuments: Document[] = [
         {'approved': false, 'detail': 'Basvuru formu ile ilgili açıklama.', 'name': 'Basvuru Formu', 'link': '/Basvuru Formu.pdf'},

@@ -22,7 +22,7 @@
     "pdfjs-dist": "^2.0.91",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
-    "primereact": "^1.1.0",
+    "primereact": "~1.2.0",
     "promise": "8.0.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",

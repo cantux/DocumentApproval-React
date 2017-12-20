@@ -12,9 +12,8 @@ pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.min.js';
 export function load(viewId, pdfPath, zoomScale) {
     var loadingTask = pdfjsLib.getDocument(pdfPath);
     var self = this;
-
+    var container = document.getElementById('pdf-container' + viewId);
     loadingTask.promise.then(function (pdfDocument) {
-        var container = document.getElementById('pdf-container' + viewId);
         // var prevCanvasElems = container.getElementsByTagName('canvas');
         // while(prevCanvasElems[0]){
         //     prevCanvasElems[0].parentNode.removeChild(prevCanvasElems[0])

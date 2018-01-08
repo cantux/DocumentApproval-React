@@ -6,7 +6,7 @@ import { CheckboxComponent } from '../common/CheckboxComponent';
 import { ErrorComponent } from '../common/ErrorComponent';
 import { ApprovalComponent } from '../common/ApprovalComponent';
 
-import { DocumentService } from '../../services/DocumentRetriever';
+import { DocumentService } from '../../services/Document';
 
 // Types
 import { match } from 'react-router-dom';

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ErrorComponent } from '../common/ErrorComponent';
 
-import { DocumentService } from '../../services/DocumentRetriever';
+import { DocumentService } from '../../services/Document';
 
 // Types
 import Document from '../../models/Document';

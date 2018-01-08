@@ -1,19 +1,22 @@
 import * as React from 'react';
 
+import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion';
+import { Panel } from 'primereact/components/panel/Panel';
+
 import { AccordionItemComponent } from '../common/AccordionItemComponent';
 import { ApprovalComponent } from '../common/ApprovalComponent';
 
 import { LoadingComponent } from '../common/LoadingComponent';
 import { ErrorComponent } from '../common/ErrorComponent';
 
-import { DocumentService } from '../../services/DocumentRetriever';
-
-import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion';
-
 import { GenericError, ErrorService } from '../../services/ErrorTransmitter';
+import { DocumentService } from '../../services/Document';
+import { ExternalAppConfigService } from '../../services/ExternalAppConfig';
+
+import Document from '../../models/Document';
+import ExternalAppConfig from '../../models/ExternalAppConfig';
 
 // Types
-import Document from '../../models/Document';
 import { match } from 'react-router-dom';
 interface NavParam {
     referralId: string;
@@ -30,6 +33,8 @@ interface AccordionListState {
     isValid: boolean;
     allChecked: boolean;
     documents: Document[];
+    customerMessage: string;
+
     lazy: boolean;
     activeAccordion: number | null;
 }
@@ -41,6 +46,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         this.state = {
             error: false,
             errorMessage: 'no error, you shouldn\'t see this',
+            customerMessage: 'empty message you shouldn\'t see this',
             allChecked: false,
             isValid: false,
             documents: [],
@@ -50,8 +56,8 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
 
     componentWillMount () {
         var errorMessage = 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.';
-        DocumentService.getDocuments(this.props.match.params.referralId).subscribe(
-            (documents: Document[]) => {
+        ExternalAppConfigService.getExternalAppConfig(this.props.match.params.referralId).subscribe(
+            (externalAppConfig: ExternalAppConfig) => {
                 if (this.props.match.params.referralId === 'noDoc') {
                     this.setState({
                         error: true,
@@ -59,11 +65,12 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                     });
                     ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, 'mock'));
                 } else {
-                    console.log('get documents response', documents);
+                    console.log('get documents response', externalAppConfig.documentList);
                     this.setState({
                       isValid: true,
-                      documents: documents,
-                      allChecked: !documents.some((value, index, array) => (!value.approved))
+                      customerMessage: externalAppConfig.customerMessage,
+                      documents: externalAppConfig.documentList,
+                      allChecked: !externalAppConfig.documentList.some((value, index, array) => (!value.approved))
                     });
                 }
             },(error) => {
@@ -71,7 +78,8 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                     error: true,
                     errorMessage: errorMessage
                 });
-                ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
+                ErrorService.postError(
+                    new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
             });
     }
 
@@ -96,7 +104,8 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                     error: true,
                     errorMessage: errorMessage
                 });
-                ErrorService.postError(new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
+                ErrorService.postError(
+                    new GenericError(errorMessage, this.props.match.params.referralId, JSON.stringify(error)));
             }
         );
     };
@@ -125,7 +134,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
         window.scrollTo(0, appHeaderHeight + (e.originalEvent.target.clientHeight * e.index) / 2);
 
         this.setState({activeAccordion: e.index});
-    };
+    }
 
     public render (): JSX.Element {
         const accordionItems = this.state.documents.map((item, index) => {
@@ -140,15 +149,23 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                         onDocumentReadCheckedCb={this.onDocumentReadChecked}
                         activeAccordion={this.state.activeAccordion}
                     />
-                </AccordionTab>);
+                </AccordionTab>
+            );
         });
+
+        const customerMessage = this.state.customerMessage ? (
+            <Panel className="ui-g-12">
+                {this.state.customerMessage}
+            </Panel>
+            ) : null;
 
         return (
             this.state.error ?
                 <ErrorComponent message={this.state.errorMessage}/>
                 :
-                this.state.isValid ?
+                this.state.isValid ? (
                     <div className="ui-g">
+                        {customerMessage}
                         <div className="ui-g-12">
                             <Accordion
                                 onTabClose={this.onAccordionTabClose}
@@ -160,12 +177,12 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
                         <div className="ui-g-12">
                             <ApprovalComponent allChecked={this.state.allChecked} approvalCb={this.sendApproval}/>
                         </div>
-                    </div>
-                    :
+                    </div>)
+                    : (
                     <div>
                         {'Lütfen Bekleyiniz...'}
                         <LoadingComponent/>
-                    </div>
+                    </div>)
         );
     }
 }

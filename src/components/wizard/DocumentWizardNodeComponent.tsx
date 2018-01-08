@@ -10,7 +10,7 @@ import { Growl, GrowlMessage } from 'primereact/components/growl/Growl';
 // Types
 import Document from '../../models/Document';
 import { match } from 'react-router-dom';
-import { DocumentService } from '../../services/DocumentRetriever';
+import { DocumentService } from '../../services/Document';
 interface NavParam {
     referralId: string;
     nodeId: number;

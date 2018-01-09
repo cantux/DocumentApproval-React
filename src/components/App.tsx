@@ -46,7 +46,7 @@ class App extends React.Component<AppProps, AppState> {
                             <img src={logo} style={logoStyle}/>
                         </div>
                         <div className="ui-g-12">
-                            <h2>Döküman Onay</h2>
+                            <h2>Doküman Onay</h2>
                         </div>
                     </div>
                 </div>

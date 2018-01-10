@@ -49,7 +49,7 @@
   },
   "scripts": {
     "start:mock": "set USE_MOCK=true&&node scripts/start.js",
-    "build:relative:tomcat": "set PUBLIC_URL=/InstantWeb/faces/mobile/&&set ENDPOINT=node scripts/build.js",
+    "build:relative:tomcat": "set PUBLIC_URL=/InstantWeb/faces/mobile/&&set ENDPOINT=/InstantWeb/rs/docs?t=&&node scripts/build.js",
     "build:relative:levent": "set PUBLIC_URL=/InstantWeb/faces/mobile/&&set ENDPOINT=api/docs&&node scripts/build.js",
     "build:absolute:heroku": "set USE_MOCK=true&&node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"

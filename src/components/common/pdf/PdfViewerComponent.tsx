@@ -4,6 +4,7 @@ let viewer = require('./viewer.js');
 
 // Types
 import Document from '../../../models/Document';
+import { LoadingComponent } from '../LoadingComponent';
 interface PdfViewerProps {
     document: Document;
     documentIndex: number;
@@ -11,7 +12,8 @@ interface PdfViewerProps {
     scrollToEndEventCb: () => any;
 }
 interface PdfViewerState {
-    loaded: boolean;
+    loadingStarted: boolean;
+    loadingFinished: boolean;
     zoom: number;
 }
 // End of Types
@@ -21,19 +23,19 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
 
     constructor(props: PdfViewerProps) {
         super(props);
-        this.state = { loaded: false, zoom: 1 };
+        this.state = { loadingStarted: false, loadingFinished: false, zoom: 1 };
         this.zoomInClicked = this.zoomInClicked.bind(this);
         this.zoomOutClicked = this.zoomOutClicked.bind(this);
     }
 
     shouldComponentUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
-        return nextProps.lazy && !nextState.loaded;
+        return nextProps.lazy || nextState.loadingStarted || nextState.loadingFinished;
     }
 
     componentWillUpdate (nextProps: PdfViewerProps, nextState: PdfViewerState) {
-        // load the document if it hasn't been loaded before
+        // load the document if it hasn't been loadingStarted before
       // confus
-        if(!this.state.loaded && !nextState.loaded){
+        if(!this.state.loadingStarted && !nextState.loadingStarted){
             this.loadPdfSetStateAndScrollEvent(this.props.document.link, this.props.scrollToEndEventCb, 1);
         }
     }
@@ -46,10 +48,10 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
     }
 
     loadPdfSetStateAndScrollEvent (link: string, scrolledToEndEventCb: () => any, zoomScale: number) {
-        viewer.load(this.props.documentIndex, link, zoomScale);
+        viewer.load(this.props.documentIndex, link, zoomScale, this.onLoadingFinished);
 
         // confus
-        this.setState({loaded: true});
+        this.setState({loadingStarted: true});
 
         if (document && !this.scrollToEndEvent){
             let pdfContainer = document.getElementById(`pdf-container${this.props.documentIndex}`);
@@ -84,6 +86,12 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
         }
     }
 
+    onLoadingFinished = () => {
+        this.setState({
+            loadingFinished: true
+        });
+    }
+
     public render (): JSX.Element {
 
         // const fixedTopElement = {
@@ -98,24 +106,39 @@ export class PdfViewerComponent extends React.Component<PdfViewerProps, PdfViewe
         //     right: "5%"
         // } as React.CSSProperties;
 
-        const pdfContainerStyle = {
+        const toggleLoadingMumboJumbo = this.props.lazy && (this.state.loadingStarted && !this.state.loadingFinished);
+        const pdfContainerStyle = toggleLoadingMumboJumbo ? {
             height: '60vh',
             overflow: "auto",
-            overflowY: "scroll"
+            overflowY: "scroll",
+            visibility: "hidden"
+        } as React.CSSProperties
+        : {
+                height: '60vh',
+                overflow: "auto",
+                overflowY: "scroll"
         } as React.CSSProperties;
 
+        const loadingStyle = !toggleLoadingMumboJumbo ? {  display: "none"
+        } as React.CSSProperties : {} as React.CSSProperties;
+
         return (
-            <div id={`pdf-container${this.props.documentIndex}`} style={pdfContainerStyle}>
-                {/*<button*/}
+            <div>
+                <div style={loadingStyle}>
+                    <LoadingComponent/>
+                </div>
+                <div id={`pdf-container${this.props.documentIndex}`} style={pdfContainerStyle}>
+                    {/*<button*/}
                     {/*id={`zoominbutton${this.props.documentIndex}`}*/}
                     {/*type="button"*/}
                     {/*style={fixedTopElement}*/}
                     {/*onClick={this.zoomInClicked}>zoom in</button>*/}
-                {/*<button*/}
+                    {/*<button*/}
                     {/*id={`zoomoutbutton${this.props.documentIndex}`}*/}
                     {/*type="button"*/}
                     {/*style={fixedLowerElement}*/}
                     {/*onClick={this.zoomOutClicked}>zoom out</button>*/}
+                </div>
             </div>
         );
     }

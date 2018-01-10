@@ -9,7 +9,7 @@ pdfjsLib.PDFJS.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.min.js';
 
 // Loading a document.
 
-export function load(viewId, pdfPath, zoomScale) {
+export function load(viewId, pdfPath, zoomScale, renderFinished) {
     var loadingTask = pdfjsLib.getDocument(pdfPath);
     var self = this;
     var container = document.getElementById('pdf-container' + viewId);
@@ -21,35 +21,38 @@ export function load(viewId, pdfPath, zoomScale) {
 
         // Request a first page
         for(var i = 1; i <= pdfDocument.numPages; i++) {
-            pdfDocument.getPage(i).then(function (pdfPage) {
-                var viewport = pdfPage.getViewport(1);
+            pdfDocument.getPage(i).then(
+                function (pdfPage) {
+                    var viewport = pdfPage.getViewport(1);
 
-                var pageCanvas = document.createElement('canvas');
-                pageCanvas.id = 'pdf-' + viewId + '-page-' + i;
+                    var pageCanvas = document.createElement('canvas');
+                    pageCanvas.id = 'pdf-' + viewId + '-page-' + i;
 
-                container.appendChild(pageCanvas);
+                    container.appendChild(pageCanvas);
 
-                // var scale = container.clientWidth / viewport.width;
-                // console.log('scale is: ', scale * 2);
-                viewport = pdfPage.getViewport(zoomScale);
+                    // var scale = container.clientWidth / viewport.width;
+                    // console.log('scale is: ', scale * 2);
+                    viewport = pdfPage.getViewport(zoomScale);
 
-                pageCanvas.width = viewport.width;
-                pageCanvas.height = viewport.height;
+                    pageCanvas.width = viewport.width;
+                    pageCanvas.height = viewport.height;
 
-                var ctx = pageCanvas.getContext('2d');
+                    var ctx = pageCanvas.getContext('2d');
 
-                var renderTask = pdfPage.render({
-                    canvasContext: ctx,
-                    viewport: viewport
-                });
-                return renderTask.promise;
-            }).catch(function (reason) {
+                    var renderTask = pdfPage.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    });
+                    return renderTask.promise;
+                }
+            ).catch(function (reason) {
               var errorDiv = document.createElement('div');
               errorDiv.innerText = "Pdf oluşturulması sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz";
               container.appendChild(errorDiv);
               ErrorService.postError(new GenericError('pdf get page promise catch!!!', 0, JSON.stringify(reason)));
             });
         }
+        renderFinished();
     }).catch(function (reason) {
       var errorDiv = document.createElement('div');
       errorDiv.innerText = "Pdf oluşturulması sırasında hata ile karşılaşıldı. Sürece kasadan devam ediniz";

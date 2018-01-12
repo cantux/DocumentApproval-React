@@ -54,7 +54,7 @@ export class AccordionListComponent extends React.Component<AccordionListProps, 
             activeAccordion: this.props.match.params.nodeId};
     }
 
-    componentWillMount () {
+    componentDidMount () {
         var errorMessage = 'Bu referans numarasına ait dökümanlar bulunamadı. Sürece kasadan devam ediniz.';
         ExternalAppConfigService.getExternalAppConfig(this.props.match.params.referralId).subscribe(
             (externalAppConfig: ExternalAppConfig) => {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 import { Checkbox } from 'primereact/components/checkbox/Checkbox';
 import { Button } from 'primereact/components/button/Button';
@@ -6,7 +6,7 @@ import { DataTable } from 'primereact/components/datatable/DataTable';
 import { Column } from 'primereact/components/column/Column';
 import { Panel } from 'primereact/components/panel/Panel';
 
-import { ErrorComponent } from "../common/ErrorComponent";
+import { ErrorComponent } from '../common/ErrorComponent';
 
 import * as rpn from 'request-promise-native';
 
@@ -59,18 +59,18 @@ export class DocumentsTableComponent extends React.Component<DocumentsTableProps
 
     componentDidMount () {
         this.mockDocuments = [
-            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=1"},
-            {"link": "second"},
-            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=3"},
-            {"link": "fourth"},
-            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=5"},
-            {"link": "sixth"},
-            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=7"},
-            {"link": "eighth"},
-            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=9"},
-            {"link": "tenth"},
-            {"link": "https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=11"},
-            {"link": "twelweth"}];
+            {'link': 'https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=1'},
+            {'link': 'second'},
+            {'link': 'https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=3'},
+            {'link': 'fourth'},
+            {'link': 'https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=5'},
+            {'link': 'sixth'},
+            {'link': 'https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=7'},
+            {'link': 'eighth'},
+            {'link': 'https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=9'},
+            {'link': 'tenth'},
+            {'link': 'https://fbilpapp01t.fibabanka.local/InstantWeb/faces/instant/file?f=11'},
+            {'link': 'twelweth'}];
         this.setState({documentsLength: this.mockDocuments.length});
     }
 
@@ -80,7 +80,7 @@ export class DocumentsTableComponent extends React.Component<DocumentsTableProps
             if (this.mockDocuments) {
                 this.setState({documents: this.mockDocuments.slice(event.first, (event.first + event.rows))});
             }
-        }, 250);
+        },         250);
     }
 
     handleSubmit () {
@@ -114,10 +114,10 @@ export class DocumentsTableComponent extends React.Component<DocumentsTableProps
         ];
 
         let columnBody = (rowData: any, column: any) => {
-            return <div onClick={this.columnClicked}>{rowData.link}</div>; //<a href=/>
+            return <div onClick={this.columnClicked}>{rowData.link}</div>;
         };
 
-        const wordWrap = {"word-wrap": "break-word"};
+        const wordWrap = {'word-wrap': 'break-word'};
 
         let dynamicColumns: JSX.Element[] = cols.map((col, i) => {
             return (
